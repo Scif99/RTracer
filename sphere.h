@@ -39,12 +39,17 @@ constexpr std::optional<float> Sphere::isHit(const Ray& r, float& low, float& hi
     if(discriminant <=0 )return {}; //no roots
 
     //Use discriminant to compute smaller value of t at closest intersection point
-    float t_min = (-dot(r.direction(),r.origin() - centre()) - discriminant)/dot(r.direction(),r.direction());
-    if(t_min > high || t_min < low) {return {};} 
-    high = t_min;
-    return t_min;
+    float t = (-dot(r.direction(),r.origin() - centre()) - discriminant)/dot(r.direction(),r.direction());
+    if(t > high || t < low) 
+    {
+        t = (-dot(r.direction(),r.origin() - centre()) + discriminant)/dot(r.direction(),r.direction());
+        if(t > high || t < low)
+        //update high here?
+        return {};} 
+    return t;
 }
 
+//Return the normalized normal at intersection point
 constexpr Vec3 Sphere::normal(const Ray& r, float t) const noexcept
 {
     return unit_vector(r.at(t) - m_centre_);
