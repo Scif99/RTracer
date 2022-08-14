@@ -7,23 +7,29 @@
 
 class Sphere : public Hittable
 {
-
+    Vec3 m_centre_;
+    float m_radius_;
 public:
+
+    //Special members
+    ~Sphere() = default;
+    Sphere() = delete;
+    Sphere(const Sphere&) = default;
+    Sphere& operator=(const Sphere&) = default;
+    Sphere(Sphere&&) = default;
+    Sphere& operator=(Sphere&&) = default;
+
+    //Constructor
     constexpr Sphere(float r, Vec3 v)
         : m_centre_{v}, m_radius_{r} { assert(m_radius_>0);}
+
 
     constexpr Vec3 centre() const noexcept {return m_centre_;}
     constexpr float radius() const noexcept {return m_radius_;}
 
     constexpr virtual std::optional<float> isHit(const Ray& r, float& low, float& high) const override final;
 
-    constexpr virtual Vec3 normal(const Ray& r, float t) const noexcept override final;
-private:
-    Vec3 m_centre_;
-    float m_radius_;
-
-    inline static const Color m_color_{0.f,1.f,0.f};
-
+    constexpr virtual Vec3 outward_normal(const Ray& r, float t) const noexcept override final;
 };
 
 constexpr std::optional<float> Sphere::isHit(const Ray& r, float& low, float& high) const
@@ -50,7 +56,7 @@ constexpr std::optional<float> Sphere::isHit(const Ray& r, float& low, float& hi
 }
 
 //Return the normalized normal at intersection point
-constexpr Vec3 Sphere::normal(const Ray& r, float t) const noexcept
+constexpr Vec3 Sphere::outward_normal(const Ray& r, float t) const noexcept
 {
     return unit_vector(r.at(t) - m_centre_);
 }

@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include <algorithm>
 #include <array>
 #include <cassert>
 #include <iostream>
@@ -38,6 +39,7 @@ public:
     constexpr const float& operator[](int i) const {return elem[i];}
 
     constexpr Vec3 operator-() const noexcept {return Vec3(-elem[0], -elem[1], -elem[2]);}
+    constexpr Vec3& operator+=(const Vec3& other)  noexcept {elem[0]+=other[0];elem[1]+=other[1];elem[2]+=other[2]; return *this;}
 
     constexpr float length_squared() const {return (elem[0]*elem[0])+(elem[1]*elem[1])+(elem[2]*elem[2]);};
     constexpr float length() const {return sqrt(length_squared());} //noexcept?
@@ -100,16 +102,22 @@ constexpr Vec3 unit_vector(const Vec3& vec)
 using Point3 = Vec3;
 using Color = Vec3;
 
-void print_color(std::ostream &out, const Color& pixel_color) {
+void print_color(std::ostream &out, const Color& pixel_color, int samples_per_pixel) {
 
-    //assert(pixel_color.length()<=1);
-    
+    using std::clamp;
+
+    auto r = pixel_color.x();
+    auto g = pixel_color.y();
+    auto b = pixel_color.z();
+
+    // Divide the color by the number of samples.
+    auto scale = 1.f / samples_per_pixel;
+    r *= scale;
+    g *= scale;
+    b *= scale;
+
     // Write the translated [0,255] value of each color component.
-    int r = 256.f * pixel_color.x();
-    int g = 256.f * pixel_color.y();
-    int b = 256.f * pixel_color.z();
-
-    out << static_cast<int>(255.999 * pixel_color.x()) << ' '
-        << static_cast<int>(255.999 * pixel_color.y()) << ' '
-        << static_cast<int>(255.999 * pixel_color.z()) << '\n';
+    out << static_cast<int>(256 * clamp(r, 0.f, 0.999f)) << ' '
+        << static_cast<int>(256 * clamp(g, 0.f, 0.999f)) << ' '
+        << static_cast<int>(256 * clamp(b, 0.f, 0.999f)) << '\n';
 }
