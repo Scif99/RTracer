@@ -15,19 +15,19 @@ class Triangle : public Hittable
 {
 public:
     constexpr Triangle(const Point3& a, const Point3& b, const Point3& c) //points should be specified in counter-clockwise order?
-        : m_points_{a,b,c}, m_normal_{cross(b-a,c-a)} {}
+        : m_points_{a,b,c}, m_normal_{unit_vector(cross(b-a,c-a))} {}
 
     
 
     //Overloads for rvalues?
     
-    virtual bool isHit(const Ray& r, float& low, float& high) const override final;
+    constexpr virtual std::optional<float> isHit(const Ray& r, float& low, float& high) const override final;
 
     constexpr Point3 a() const noexcept { return m_points_[0];}
     constexpr Point3 b() const noexcept { return m_points_[1];}
     constexpr Point3 c() const noexcept { return m_points_[2];}
     
-    virtual Color color() const noexcept {return m_color_;}
+    constexpr virtual Vec3 normal(const Ray& r, float t) const noexcept override final;
 
 private:
     std::array<Point3,3> m_points_;
@@ -37,7 +37,7 @@ private:
 };
 
 
-bool Triangle::isHit(const Ray& r, float& low, float& high) const
+constexpr std::optional<float> Triangle::isHit(const Ray& r, float& low, float& high) const
 {
 
     //Write all coefficients of the matrix... (p. 78 in Shirley)
@@ -61,15 +61,20 @@ bool Triangle::isHit(const Ray& r, float& low, float& high) const
     const auto M{A*(E*I-H*F) + B*(G*F-D*I) + C*(D*H-E*G)};
 
     const auto gamma{( I*(A*K-J*B) + H*(J*C-A*L) + G*(B*L-K*C) ) / M};
-    if(gamma < 0.f || gamma > 1.f) {return false;}
+    if(gamma < 0.f || gamma > 1.f) {return {};}
 
     const auto beta{( J*(E*I - H*F) + K*(G*F - D*I) + L*(D*H- E*G) )/ M};
-    if(beta<0.f || beta > 1.f - gamma) {return false;}
+    if(beta<0.f || beta > 1.f - gamma) {return {};}
 
     const auto t{-1.f*(F*(A*K - J*B) + E*(J*C - A*L) + D*(B*L - K*C)) / M};
 
-    if(t > high || t < low) {return false;} //If parameter is outside the range, ignore it
+    if(t > high || t < low) {return {};} //If parameter is outside the range, ignore it
     high = t;
-    return true;
+    return t;
 
+}
+
+constexpr Vec3 Triangle::normal(const Ray& r, float t) const noexcept
+{
+    return m_normal_;
 }

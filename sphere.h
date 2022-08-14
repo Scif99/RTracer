@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 #include "hittable.h"
 #include "vec3.h"
 
@@ -13,9 +15,9 @@ public:
     constexpr Vec3 centre() const noexcept {return m_centre_;}
     constexpr float radius() const noexcept {return m_radius_;}
 
-    constexpr virtual  bool isHit(const Ray& r, float& low, float& high) const override final;
-    
-    virtual Color color() const noexcept {return m_color_;}
+    constexpr virtual std::optional<float> isHit(const Ray& r, float& low, float& high) const override final;
+
+    constexpr virtual Vec3 normal(const Ray& r, float t) const noexcept override final;
 private:
     Vec3 m_centre_;
     float m_radius_;
@@ -24,7 +26,7 @@ private:
 
 };
 
-constexpr bool Sphere::isHit(const Ray& r, float& low, float& high) const
+constexpr std::optional<float> Sphere::isHit(const Ray& r, float& low, float& high) const
 {
     //First we sub the parametric equation for a ray into the parametric equation for a circle.
     //The resulting equation is a quadratic in the parameter t. Thus a root exists iff t has two distinct roots.
@@ -32,15 +34,18 @@ constexpr bool Sphere::isHit(const Ray& r, float& low, float& high) const
     const auto A{dot(r.direction(),r.direction())};
     const auto B{2*dot(r.direction(),r.origin()-centre())};
     const auto C{dot(r.origin()-centre(),r.origin()-centre()) - (radius()*radius())};
-
     const auto discriminant = (B*B) - 4*A*C;
 
-    if(discriminant <=0 )return false; //no roots
+    if(discriminant <=0 )return {}; //no roots
 
-    //Use discriminant to compute values of t at intersection points
+    //Use discriminant to compute smaller value of t at closest intersection point
     float t_min = (-dot(r.direction(),r.origin() - centre()) - discriminant)/dot(r.direction(),r.direction());
-    //float t_max = (-dot(r.direction(),r.origin() - centre()) + discriminant)/dot(r.direction(),r.direction()); //Dont ned t_max - only care about closest intersection!
-    if(t_min > high || t_min < low) {return false;} //If parameter is outside the range, ignore it
+    if(t_min > high || t_min < low) {return {};} 
     high = t_min;
-    return true;
+    return t_min;
+}
+
+constexpr Vec3 Sphere::normal(const Ray& r, float t) const noexcept
+{
+    return unit_vector(r.at(t) - m_centre_);
 }

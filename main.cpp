@@ -20,9 +20,9 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
     auto high = std::numeric_limits<float>::max();
     for(const auto& h :  hittables) //Iterate through all the geometry in the scene
     {
-        if(h->isHit(r,low,high))
+        if(auto t = h->isHit(r,low,high); t)
         {
-            return h->color();
+            return Color(0.5*(h->normal(r,t.value())+ Vec3(1.f,1.f,1.f))); //Color according to the normal vector...
         }
     }
     const Vec3 unit_direction{unit_vector(r.direction())}; //constexrp?
@@ -50,7 +50,7 @@ int main()
     constexpr auto lower_left = viewpoint - horizontal/2.f - vertical/2.f + view_direction; 
 
     std::vector<std::unique_ptr<Hittable>> v_hittables;
-    v_hittables.push_back(std::make_unique<Sphere>(1,Vec3{0.f,0.f,-5.f}));
+    v_hittables.push_back(std::make_unique<Sphere>(0.5f,Vec3{0.f,0.f,-1.f}));
     v_hittables.push_back(std::make_unique<Triangle>(Point3(0.f,4.f,-2.f),Point3(4.f,0.f,-2.f),Point3(-4.f,0.f,-2.f)));
 
 
