@@ -1,10 +1,13 @@
+#include <cmath>
+#include <cassert>
+
+
 #include <chrono>
 #include <iostream>
 #include <thread>
 #include <vector>
 
 #include <algorithm>
-#include <cassert>
 #include <memory.h>
 #include <numeric>
 
@@ -25,18 +28,36 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
     {
         if(const auto t = h->isHit(r,low,high); t)
         {
+            const Vec3 n{unit_vector(h->outward_normal(r,t.value()))}; //unit normal at intersection point
+
             //Now we check whether the ray is inside or outside the shape
-            if(dot(r.direction(),h->outward_normal(r,t.value())) > 0.f) //inside    **double sided triangles?
+            if(dot(r.direction(),n) > 0.f) //inside    **double sided triangles?
             {
                 return Color(1.f,0.f,0.f);
             }
             else //outside
             {
-                Color K{0.5*(h->outward_normal(r,t.value())+ Vec3(1.f,1.f,1.f))};
-                float I = 1.f;
-                Color L = K*I*std::max(0.f,dot(h->outward_normal(r,t.value()),unit_vector(light-r.at(t.value()))));
-                return L;
-        
+                constexpr Color light_intensity{0.5f,0.5f,0.5f}; //good idea to make the intensity grey
+                const Color obj_col{0.5*(n+ Vec3(1.f,1.f,1.f))}; //Color surface according to direction of normal
+
+                const Vec3 l {light-r.at(t.value())}; //Vector from intersection point to light source
+
+                //Ambient 
+                constexpr auto ambient_strength{0.3f};
+                const Color ambient_light = ambient_strength*light_intensity;
+
+                //Diffuse
+                const Color diffuse_light{light_intensity*std::max(0.f,dot(n,unit_vector(l)))};
+
+
+                //Specular
+                const Color specular_color{0.5f,0.5f,0.5f};
+                const Vec3 v = Vec3{0.f,0.f,0.f} - r.at(t.value()); //TODO REMOVE HARD CODED ORIGIN
+                const Vec3 h{unit_vector(l+v)};
+                const int p{100};
+                const Color specular_light{specular_color*std::pow(std::max(0.f,dot(n,h)),p)};
+
+                return (ambient_light+diffuse_light+specular_light)*obj_col;
                 //return Color(0.5*(h->outward_normal(r,t.value())+ Vec3(1.f,1.f,1.f))); //Color according to the normal vector...
 
             }
@@ -74,7 +95,7 @@ int main()
     v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-0.f),Point3(100.f,-1.f,-100.f)));
     v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-100.f),Point3(-100.f,-1.f,-100.f)));
 
-    constexpr Point3 light_point{0.f,3.f,1.f}; //Create a point light
+    constexpr Point3 light_point{0.f,0.f,-5.f}; //Create a point light
 
     constexpr auto samples_per_pixel{100};
     auto& rng = RNG::get();
