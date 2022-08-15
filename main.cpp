@@ -1,15 +1,13 @@
 #include <cmath>
 #include <cassert>
 
-
+#include <algorithm>
 #include <chrono>
 #include <iostream>
-#include <thread>
-#include <vector>
-
-#include <algorithm>
 #include <memory.h>
 #include <numeric>
+#include <thread>
+#include <vector>
 
 #include "ray.h"
 #include "vec3.h"
@@ -26,7 +24,7 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
     auto high = std::numeric_limits<float>::max();
     for(const auto& h :  hittables) //Iterate through all the geometry in the scene
     {
-        if(const auto t = h->isHit(r,low,high); t)
+        if(const auto t = h->isHit(r,low,high); t) //CAN CONSTEXPR ALL OF BELOW IF WE REPLACE VECTOR WITH ARRAY
         {
             const Vec3 n{unit_vector(h->outward_normal(r,t.value()))}; //unit normal at intersection point
 
@@ -43,7 +41,7 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
                 const Vec3 l {light-r.at(t.value())}; //Vector from intersection point to light source
 
                 //Ambient 
-                constexpr auto ambient_strength{0.3f};
+                constexpr auto ambient_strength{0.5f};
                 const Color ambient_light = ambient_strength*light_intensity;
 
                 //Diffuse
@@ -51,10 +49,10 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
 
 
                 //Specular
-                const Color specular_color{0.5f,0.5f,0.5f};
+                constexpr Color specular_color{0.5f,0.5f,0.5f};
                 const Vec3 v = Vec3{0.f,0.f,0.f} - r.at(t.value()); //TODO REMOVE HARD CODED ORIGIN
                 const Vec3 h{unit_vector(l+v)};
-                const int p{100};
+                constexpr auto p{100};
                 const Color specular_light{specular_color*std::pow(std::max(0.f,dot(n,h)),p)};
 
                 return (ambient_light+diffuse_light+specular_light)*obj_col;
@@ -95,7 +93,7 @@ int main()
     v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-0.f),Point3(100.f,-1.f,-100.f)));
     v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-100.f),Point3(-100.f,-1.f,-100.f)));
 
-    constexpr Point3 light_point{0.f,0.f,-5.f}; //Create a point light
+    constexpr Point3 light_point{0.f,0.f,0.f}; //Create a point light
 
     constexpr auto samples_per_pixel{100};
     auto& rng = RNG::get();
