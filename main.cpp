@@ -3,6 +3,7 @@
 #include <thread>
 #include <vector>
 
+#include <algorithm>
 #include <cassert>
 #include <memory.h>
 #include <numeric>
@@ -15,14 +16,14 @@
 
 
 
-Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hittables) {
+Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hittables, const Point3& light) {
 
     //We only need to find the first object that intersects with the ray (if any).
     auto low = 0.f;
     auto high = std::numeric_limits<float>::max();
     for(const auto& h :  hittables) //Iterate through all the geometry in the scene
     {
-        if(auto t = h->isHit(r,low,high); t)
+        if(const auto t = h->isHit(r,low,high); t)
         {
             //Now we check whether the ray is inside or outside the shape
             if(dot(r.direction(),h->outward_normal(r,t.value())) > 0.f) //inside    **double sided triangles?
@@ -31,7 +32,13 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
             }
             else //outside
             {
-                return Color(0.5*(h->outward_normal(r,t.value())+ Vec3(1.f,1.f,1.f))); //Color according to the normal vector...
+                Color K{0.5*(h->outward_normal(r,t.value())+ Vec3(1.f,1.f,1.f))};
+                float I = 1.f;
+                Color L = K*I*std::max(0.f,dot(h->outward_normal(r,t.value()),unit_vector(light-r.at(t.value()))));
+                return L;
+        
+                //return Color(0.5*(h->outward_normal(r,t.value())+ Vec3(1.f,1.f,1.f))); //Color according to the normal vector...
+
             }
             
         }
@@ -61,15 +68,15 @@ int main()
 
     std::vector<std::unique_ptr<Hittable>> v_hittables;
     v_hittables.push_back(std::make_unique<Sphere>(0.5f,Point3{0.f,0.f,-1.f}));
-    v_hittables.push_back(std::make_unique<Triangle>(Point3(0.f,4.f,-5.f),Point3(-4.f,-1.f,-5.f),Point3(4.f,-1.f,-5.f))); //Make sure to specify in CCW
+    //v_hittables.push_back(std::make_unique<Triangle>(Point3(0.f,4.f,-5.f),Point3(-4.f,-1.f,-5.f),Point3(4.f,-1.f,-5.f))); //Make sure to specify in CCW
 
     //Can model a 'floor' with two triangles
     v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-0.f),Point3(100.f,-1.f,-100.f)));
     v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-100.f),Point3(-100.f,-1.f,-100.f)));
 
+    constexpr Point3 light_point{0.f,3.f,1.f}; //Create a point light
 
-
-    constexpr auto samples_per_pixel{1000};
+    constexpr auto samples_per_pixel{100};
     auto& rng = RNG::get();
 
     std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
@@ -85,7 +92,7 @@ int main()
                 const auto u{((float)i + rng.generate_float(0.f,1.f)) / (float)(image_width-1)};
                 const auto v{((float)j + rng.generate_float(0.f,1.f) )/ (float)(image_height-1)};
                 const Ray r{viewpoint, lower_left - viewpoint + u*horizontal + v*vertical}; //Generate the ray from viewpoint to pixel location
-                col +=ray_color(r,v_hittables);
+                col +=ray_color(r,v_hittables, light_point);
             }
 
             print_color(std::cout,col, samples_per_pixel);
