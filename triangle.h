@@ -18,7 +18,6 @@ class Triangle : public Hittable
     std::array<Point3,3> m_points_;
     Vec3 m_normal_;
     bool b_double_sided_;
-
 public:
 
     //Special members
@@ -31,7 +30,7 @@ public:
 
     //Constructors
     constexpr Triangle(const Point3& a, const Point3& b, const Point3& c, bool double_sided = false) 
-        : m_points_{a,b,c}, m_normal_{(cross(b-a,c-a))}, b_double_sided_{double_sided} {}
+        : Hittable(true), m_points_{a,b,c}, m_normal_{(cross(b-a,c-a))}, b_double_sided_{double_sided} {}
 
     
     constexpr virtual std::optional<float> isHit(const Ray& r, float& low, float& high) const override final;

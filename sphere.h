@@ -21,7 +21,7 @@ public:
 
     //Constructor
     constexpr Sphere(float r, Vec3 v)
-        : m_centre_{v}, m_radius_{r} { assert(m_radius_>0);}
+        : Hittable{false}, m_centre_{v}, m_radius_{r} { assert(m_radius_>0);}
 
 
     constexpr Vec3 centre() const noexcept {return m_centre_;}
