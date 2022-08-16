@@ -28,7 +28,7 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
     //We only need to find the first object that intersects with the ray (if any).
     for(const auto& surface :  hittables) //Iterate through all the geometry in the scene
     {
-        if(const auto t = surface->isHit(r,low,high); t) //CAN CONSTEXPR ALL OF BELOW IF WE REPLACE VECTOR WITH ARRAY
+        if(const auto t = surface->isHit(r,low,high); t) //CAN CONSTEXPR ALL OF BELOW IF WE REPLACE VECTOR WITH ARRAY?
         {
             const Vec3 n{unit_vector(surface->outward_normal(r,t.value()))}; //unit normal at intersection point
             const Color surface_color{0.5*(n+ Vec3(1.f,1.f,1.f))}; //Color surface according to direction of normal
@@ -36,7 +36,7 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
             if(dot(r.direction(),n) < 0.f) //outside
             {
                 const Vec3 l {unit_vector(light.position()-r.at(t.value()))}; //Vector from intersection point to light source
-                auto eps{0.01f}; //prevent self intersection
+                auto eps{0.5f}; //prevent self intersection
 
                 //Ambient 
                 constexpr Color ambient_light = {0.2f};
@@ -44,7 +44,7 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
                 //If outgoing ray from intersection point hits some other surface, then it must correspond to a shadow ray
                 for(const auto& other: hittables)
                 {
-                    if(const auto s = other->isHit(Ray{r.at(t.value()),l},eps,high); s && other!=surface) 
+                    if(const auto s = other->isHit(Ray{r.at(t.value()),l},eps,high); s) 
                     {
                         return ambient_light*surface_color;
                     }
