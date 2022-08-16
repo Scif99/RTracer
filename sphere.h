@@ -14,10 +14,10 @@ public:
     //Special members
     ~Sphere() = default;
     Sphere() = delete;
-    Sphere(const Sphere&) = default;
-    Sphere& operator=(const Sphere&) = default;
-    Sphere(Sphere&&) = default;
-    Sphere& operator=(Sphere&&) = default;
+    constexpr Sphere(const Sphere&) = default;
+    constexpr Sphere& operator=(const Sphere&) = default;
+    constexpr Sphere(Sphere&&) noexcept = default;
+    constexpr Sphere& operator=(Sphere&&) noexcept = default;
 
     //Constructor
     constexpr Sphere(float r, Vec3 v)

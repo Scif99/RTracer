@@ -24,10 +24,10 @@ public:
     //Special members
     ~Triangle() = default;
     Triangle() = delete;
-    Triangle(const Triangle&) = default;
-    Triangle& operator=(const Triangle&) = default;
-    Triangle(Triangle&&) = default;
-    Triangle& operator=(Triangle&&) = default;
+    constexpr Triangle(const Triangle&) = default;
+    constexpr Triangle& operator=(const Triangle&) = default;
+    constexpr Triangle(Triangle&&) noexcept = default;
+    constexpr Triangle& operator=(Triangle&&) noexcept = default;
 
     //Constructors
     constexpr Triangle(const Point3& a, const Point3& b, const Point3& c, bool double_sided = false) 

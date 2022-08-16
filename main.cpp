@@ -35,22 +35,23 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
             }
             else //outside
             {
+                //Check whether the ray is a shadow by casting another ray from intersection point to light source
+                
                 constexpr Color light_intensity{0.5f,0.5f,0.5f}; //good idea to make the intensity grey
                 const Color obj_col{0.5*(n+ Vec3(1.f,1.f,1.f))}; //Color surface according to direction of normal
 
-                const Vec3 l {light-r.at(t.value())}; //Vector from intersection point to light source
+                const Vec3 l {unit_vector(light-r.at(t.value()))}; //Vector from intersection point to light source
 
                 //Ambient 
                 constexpr auto ambient_strength{0.5f};
                 const Color ambient_light = ambient_strength*light_intensity;
 
                 //Diffuse
-                const Color diffuse_light{light_intensity*std::max(0.f,dot(n,unit_vector(l)))};
-
+                const Color diffuse_light{light_intensity*std::max(0.f,dot(n,l))};
 
                 //Specular
                 constexpr Color specular_color{0.5f,0.5f,0.5f};
-                const Vec3 v = Vec3{0.f,0.f,0.f} - r.at(t.value()); //TODO REMOVE HARD CODED ORIGIN
+                const Vec3 v = unit_vector(Vec3{0.f,0.f,0.f} - r.at(t.value())); //TODO REMOVE HARD CODED ORIGIN
                 const Vec3 h{unit_vector(l+v)};
                 constexpr auto p{100};
                 const Color specular_light{specular_color*std::pow(std::max(0.f,dot(n,h)),p)};

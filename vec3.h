@@ -11,24 +11,21 @@
 
 class Vec3
 {
+
+    std::array<float, 3> elem;
 public:
-    constexpr Vec3()
-        : elem{0.f,0.f,0.f} {}
-    
+    ~Vec3() = default;
+    constexpr Vec3() = default;
+    constexpr Vec3(const Vec3& other) = default;
+    constexpr Vec3& operator=(const Vec3& other) = default;
+    constexpr Vec3(Vec3&& other) noexcept = default;
+    constexpr Vec3& operator=(Vec3&& other) noexcept = default;
+
     constexpr Vec3(float f)
         : elem{f,f,f} {}
     
     constexpr Vec3(float x, float y, float z)
         : elem{x,y,z} {}
-
-
-    //Default copy operations
-    constexpr Vec3(const Vec3& other) = default;
-    constexpr Vec3& operator=(const Vec3& other) = default;
-    
-    //Default move operations
-    constexpr Vec3(Vec3&& other) = default;
-    constexpr Vec3& operator=(Vec3&& other) = default;
 
     constexpr float x() const noexcept {return elem[0];}
     constexpr float y() const noexcept {return elem[1];}
@@ -47,9 +44,6 @@ public:
 
 
     friend std::ostream& operator<<(std::ostream &out, const Vec3 &v);
-
-private:
-    std::array<float, 3> elem;
 };
 
 std::ostream& operator<<(std::ostream &out, const Vec3 &v) {
