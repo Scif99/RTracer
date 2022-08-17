@@ -20,8 +20,8 @@ public:
     constexpr Sphere& operator=(Sphere&&) noexcept = default;
 
     //Constructor
-    constexpr Sphere(float r, Vec3 v)
-        : Hittable{false}, m_centre_{v}, m_radius_{r} { assert(m_radius_>0);}
+    constexpr Sphere(float r, Vec3 v, std::optional<Color> col = {})
+        : Hittable{col}, m_centre_{v}, m_radius_{r} { assert(m_radius_>0);}
 
 
     constexpr Vec3 centre() const noexcept {return m_centre_;}

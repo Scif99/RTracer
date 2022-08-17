@@ -29,8 +29,8 @@ public:
     constexpr Triangle& operator=(Triangle&&) noexcept = default;
 
     //Constructors
-    constexpr Triangle(const Point3& a, const Point3& b, const Point3& c, bool double_sided = false) 
-        : Hittable(true), m_points_{a,b,c}, m_normal_{(cross(b-a,c-a))}, b_double_sided_{double_sided} {}
+    constexpr Triangle(const Point3& a, const Point3& b, const Point3& c,std::optional<Color> col = {}, bool double_sided = false) 
+        : Hittable(col), m_points_{a,b,c}, m_normal_{(cross(b-a,c-a))}, b_double_sided_{double_sided} {}
 
     
     constexpr virtual std::optional<float> isHit(const Ray& r, float& low, float& high) const override final;

@@ -5,14 +5,16 @@
 
 
 /*
-A hittable represents anything that a ray can intersect with
+- A hittable represents anything that a ray can intersect with
+- A hittable may have a predetermined color associated with it
 */
 
 class Hittable
 {
-
+    const std::optional<Color> op_color_;
 protected:
-    constexpr Hittable(bool m): is_mirror{m} {} // = default;
+    constexpr  Hittable(std::optional<Color> col): op_color_{col} {} // = default;
+    
 public:
 
     virtual ~Hittable() = default;
@@ -21,6 +23,6 @@ public:
 
     constexpr virtual std::optional<float> isHit(const Ray& ray, float& low, float& high) const = 0; //should return/modify parameter t?
     constexpr virtual Vec3 outward_normal(const Ray& r, float t) const noexcept = 0;
-    bool is_mirror;
 
+    const std::optional<Color> color() const {return op_color_;}
 };

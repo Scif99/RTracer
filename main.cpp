@@ -31,8 +31,8 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
         if(const auto t = surface->isHit(r,low,high); t) //CAN CONSTEXPR ALL OF BELOW IF WE REPLACE VECTOR WITH ARRAY?
         {
             const Vec3 n{unit_vector(surface->outward_normal(r,t.value()))}; //unit normal at intersection point
-            const Color surface_color{0.5*(n+ Vec3(1.f,1.f,1.f))}; //Color surface according to direction of normal
-
+            const Color surface_color = surface->color()!=std::nullopt ? surface->color().value() : 0.5*(n+ Vec3(1.f,1.f,1.f)); 
+            
             if(dot(r.direction(),n) < 0.f) //outside
             {
                 const Vec3 l {unit_vector(light.position()-r.at(t.value()))}; //Vector from intersection point to light source
@@ -59,7 +59,6 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
                 const Vec3 h{unit_vector(l+v)};
                 constexpr auto p{2<<9}; //2^3 ~ 10
                 const Color specular_light{specular_color*std::pow(std::max(0.f,dot(n,h)),p)};
-                auto b = surface->is_mirror;
                 return (ambient_light + diffuse_light+specular_light)*surface_color;
                 //return Color(0.5*(h->outward_normal(r,t.value())+ Vec3(1.f,1.f,1.f))); //Color according to the normal vector...
 
@@ -98,8 +97,9 @@ int main()
     //v_hittables.push_back(std::make_unique<Triangle>(Point3(0.f,4.f,-5.f),Point3(-4.f,-1.f,-5.f),Point3(4.f,-1.f,-5.f))); //Make sure to specify in CCW
 
     //Can model a 'floor' with two triangles
-    v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-0.f),Point3(100.f,-1.f,-100.f)));
-    v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-100.f),Point3(-100.f,-1.f,-100.f)));
+    constexpr Color floor_color{0.5f,0.5f,0.5f};
+    v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-0.f),Point3(100.f,-1.f,-100.f),floor_color));
+    v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-100.f),Point3(-100.f,-1.f,-100.f),floor_color));
 
     constexpr Light light{Point3{0.f,1.f,1.f}, Color{0.5f,0.5f,0.5f}};
     constexpr auto samples_per_pixel{100};
