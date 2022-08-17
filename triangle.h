@@ -33,7 +33,7 @@ public:
         : Hittable(col), m_points_{a,b,c}, m_normal_{(cross(b-a,c-a))}, b_double_sided_{double_sided} {}
 
     
-    constexpr virtual std::optional<float> isHit(const Ray& r, float& low, float& high) const override final;
+    constexpr virtual std::optional<float> isHit(const Ray& r, float low, float high) const override final;
 
     constexpr Point3 a() const noexcept { return m_points_[0];}
     constexpr Point3 b() const noexcept { return m_points_[1];}
@@ -43,7 +43,7 @@ public:
 };
 
 
-constexpr std::optional<float> Triangle::isHit(const Ray& r, float& low, float& high) const
+constexpr std::optional<float> Triangle::isHit(const Ray& r, float low, float high) const
 {
     if(dot(r.direction(),m_normal_)==0) {return {};} //ray and triangle are parallel
 
@@ -77,7 +77,6 @@ constexpr std::optional<float> Triangle::isHit(const Ray& r, float& low, float& 
     const auto t{-1.f*(F*(A*K - J*B) + E*(J*C - A*L) + D*(B*L - K*C)) / M};
 
     if(t > high || t < low) {return {};} //If parameter is outside the range, ignore it
-    high = t;
     return t;
 
 }

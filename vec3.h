@@ -7,6 +7,7 @@
 #include <cassert>
 #include <iostream>
 #include <random>
+#include "utility.h"
 
 
 class Vec3
@@ -40,6 +41,12 @@ public:
 
     constexpr float length_squared() const {return (elem[0]*elem[0])+(elem[1]*elem[1])+(elem[2]*elem[2]);};
     constexpr float length() const {return sqrt(length_squared());} //noexcept?
+
+    static Vec3 random() { return Vec3(RNG::get().generate_float(0.f,1.f), RNG::get().generate_float(0.f,1.f), RNG::get().generate_float(0.f,1.f));}
+
+    static Vec3 random(float min, float max) {
+        return Vec3(RNG::get().generate_float(min,max), RNG::get().generate_float(min,max), RNG::get().generate_float(min,max));
+        }
     
 
 
@@ -94,6 +101,14 @@ constexpr Vec3 cross(const Vec3& u, const Vec3& v)
 constexpr Vec3 unit_vector(const Vec3& vec)
 {
     return vec/vec.length();
+}
+
+Vec3 random_in_unit_sphere() {
+    while (true) {
+        auto p = Vec3::random(-1,1);
+        if (p.length_squared() >= 1) continue;
+        return p;
+    }
 }
 
 //Aliases

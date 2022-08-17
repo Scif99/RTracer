@@ -27,12 +27,12 @@ public:
     constexpr Vec3 centre() const noexcept {return m_centre_;}
     constexpr float radius() const noexcept {return m_radius_;}
 
-    constexpr virtual std::optional<float> isHit(const Ray& r, float& low, float& high) const override final;
+    constexpr virtual std::optional<float> isHit(const Ray& r, float low, float high) const override final;
 
     constexpr virtual Vec3 outward_normal(const Ray& r, float t) const noexcept override final;
 };
 
-constexpr std::optional<float> Sphere::isHit(const Ray& r, float& low, float& high) const
+constexpr std::optional<float> Sphere::isHit(const Ray& r, float low, float high) const
 {
     //First we sub the parametric equation for a ray into the parametric equation for a circle.
     //The resulting equation is a quadratic in the parameter t. Thus a root exists iff t has two distinct roots.
@@ -48,10 +48,11 @@ constexpr std::optional<float> Sphere::isHit(const Ray& r, float& low, float& hi
     float t = (-dot(r.direction(),r.origin() - centre()) - discriminant)/dot(r.direction(),r.direction());
     if(t > high || t < low) 
     {
+        //this root is outside the range, try other root
         t = (-dot(r.direction(),r.origin() - centre()) + discriminant)/dot(r.direction(),r.direction());
-        if(t > high || t < low)
-        //update high here?
-        return {};} 
+        if(t > high || t < low) 
+        return {};
+    } 
     return t;
 }
 

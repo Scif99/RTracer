@@ -5,6 +5,7 @@ C++20
 
 C++17
 - std::optional
+- structured bindings
 - if statement with initializer
 - inline variables
 
