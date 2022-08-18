@@ -35,6 +35,7 @@ std::optional<hit_record> closest(const Ray& r, const std::vector<std::unique_pt
     return data;
 }
 
+
 Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hittables, const Light& light, int depth, float low, float high) {
 
     const auto hit_data = closest(r,hittables, low, high); //get data at closest intersection
