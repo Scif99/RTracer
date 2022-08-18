@@ -37,19 +37,20 @@ constexpr std::optional<float> Sphere::isHit(const Ray& r, float low, float high
     //First we sub the parametric equation for a ray into the parametric equation for a circle.
     //The resulting equation is a quadratic in the parameter t. Thus a root exists iff t has two distinct roots.
     
-    const auto A{dot(r.direction(),r.direction())};
-    const auto B{2*dot(r.direction(),r.origin()-centre())};
-    const auto C{dot(r.origin()-centre(),r.origin()-centre()) - (radius()*radius())};
+    const auto oc = r.origin() - m_centre_;
+    const auto A{r.direction().length_squared()};
+    const auto B{dot(r.direction(),oc)}; //technically half_b
+    const auto C{oc.length_squared() - (m_radius_*m_radius_)};
     const auto discriminant = (B*B) - 4*A*C;
 
-    if(discriminant <=0 )return {}; //no roots
+    if(discriminant < 0 )return {}; //no roots
 
     //Use discriminant to compute smaller value of t at closest intersection point
-    float t = (-dot(r.direction(),r.origin() - centre()) - discriminant)/dot(r.direction(),r.direction());
+    float t = (-B - sqrtf(discriminant))/A;
     if(t > high || t < low) 
     {
         //this root is outside the range, try other root
-        t = (-dot(r.direction(),r.origin() - centre()) + discriminant)/dot(r.direction(),r.direction());
+        t = (-B + sqrtf(discriminant))/A;
         if(t > high || t < low) 
         return {};
     } 

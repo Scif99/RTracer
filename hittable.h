@@ -26,4 +26,5 @@ public:
     constexpr virtual Vec3 outward_normal(const Ray& r, float t) const noexcept = 0;
 
     const std::optional<Color> color() const {return op_color_;}
+    bool is_mirror{false};
 };

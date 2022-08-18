@@ -111,6 +111,11 @@ Vec3 random_in_unit_sphere() {
     }
 }
 
+Vec3 reflected(const Vec3& d, const Vec3& n)
+{
+    return d - 2*dot(d,n)*n;
+}
+
 //Aliases
 using Point3 = Vec3;
 using Color = Vec3;

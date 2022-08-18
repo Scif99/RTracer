@@ -20,11 +20,9 @@
 
 using hit_record = std::tuple<float,Point3, Vec3, Hittable*>;
 
-//Function that return
-std::optional<hit_record> closest(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hittables)
+//Function that returns data from the closest collision between a ray and the scene objects
+std::optional<hit_record> closest(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hittables, float low, float high)
 {
-    float low =0;
-    float high = std::numeric_limits<float>::max();
     std::optional<hit_record> data;
     for(const auto& surface : hittables)
     {
@@ -35,12 +33,11 @@ std::optional<hit_record> closest(const Ray& r, const std::vector<std::unique_pt
         }
     }
     return data;
-
 }
 
-Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hittables, const Light& light, int depth) {
-    
-    const auto hit_data = closest(r,hittables); //get data at closest intersection
+Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hittables, const Light& light, int depth, float low, float high) {
+
+    const auto hit_data = closest(r,hittables, low, high); //get data at closest intersection
 
     if(!hit_data) //ray did not intersect anything
     {
@@ -49,14 +46,13 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
         const auto t = 0.5f*(unit_direction.y() + 1.f);
         return (1.f-t)*Color(1.f, 1.f, 1.f) + t*Color(0.5f, 0.7f, 1.f);
     }
-
     const auto& [t,p,n,s] = hit_data.value();
     const Color surface_color = s->color() ? s->color().value() : 0.5*(n+ Vec3(1.f,1.f,1.f)); 
 
-    if(dot(r.direction(),n) < 0.f) //outside
+    if(dot(r.direction(),n) <= 0.f) //outside
     {
         const Vec3 l {unit_vector(light.position()-p)}; //Vector from intersection point to light source
-        constexpr auto eps{0.5f}; //prevent self intersection
+        constexpr auto eps{0.01f}; //prevent self intersection
 
         //Ambient 
         constexpr Color ambient_light(0.2f);
@@ -77,11 +73,10 @@ Color ray_color(const Ray& r, const std::vector<std::unique_ptr<Hittable>>& hitt
         constexpr Color specular_color{0.5f,0.5f,0.5f};
         const Vec3 v = unit_vector(- r.direction());
         const Vec3 h{unit_vector(l+v)};
-        constexpr auto p{2<<9}; //2^3 ~ 10
-        const Color specular_light{specular_color*std::pow(std::max(0.f,dot(n,h)),p)};
-        return (ambient_light + diffuse_light+specular_light)*surface_color;
-        //return Color(0.5*(h->outward_normal(r,t.value())+ Vec3(1.f,1.f,1.f))); //Color according to the normal vector...
-
+        constexpr auto ph_exp{2<<9}; //2^3 ~ 10
+        const Color specular_light{specular_color*std::pow(std::max(0.f,dot(n,h)),ph_exp)};
+        if(depth==0 || !s->is_mirror) return (ambient_light*surface_color + diffuse_light+specular_light)*surface_color;
+        return  0.3*ray_color(Ray(p,reflected(r.direction(),n)),hittables,light, depth-1, eps, std::numeric_limits<float>::max());
     }
 
     else  //inside    **double sided triangles?
@@ -109,14 +104,18 @@ int main()
     constexpr auto lower_left = viewpoint - horizontal/2.f - vertical/2.f + view_direction; 
 
     std::vector<std::unique_ptr<Hittable>> v_hittables;
-    v_hittables.push_back(std::make_unique<Sphere>(0.5f,Point3{0.f,0.f,-2.f}));
-    //v_hittables.push_back(std::make_unique<Triangle>(Point3(0.f,4.f,-5.f),Point3(-4.f,-1.f,-5.f),Point3(4.f,-1.f,-5.f))); //Make sure to specify in CCW
+    v_hittables.push_back(std::make_unique<Sphere>(1.f,Point3{-1.f,0.f,-2.f}));
+    v_hittables.push_back(std::make_unique<Sphere>(0.5f,Point3{1.f,0.f,-2.f}));
+    //v_hittables.back()->is_mirror = true;
+
 
     //Can model a 'floor' with two triangles
-    constexpr Color floor_color{0.5f,0.5f,0.5f};
+    constexpr Color floor_color{0.6f,0.6f,0.6f};
     v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-0.f),Point3(100.f,-1.f,-100.f),floor_color));
+    //MAKE THE FLOOR A MIRROR
+    v_hittables.back()->is_mirror = true;
     v_hittables.push_back(std::make_unique<Triangle>(Point3(-100.f,-1.f,0.f),Point3(100.f,-1.f,-100.f),Point3(-100.f,-1.f,-100.f),floor_color));
-
+    v_hittables.back()->is_mirror = true;
     constexpr Light light{Point3{0.f,1.f,1.f}, Color{0.5f,0.5f,0.5f}};
     constexpr auto samples_per_pixel{100};
     constexpr auto max_depth{10};
@@ -134,7 +133,7 @@ int main()
                 const auto u{((float)i + RNG::get().generate_float(0.f,1.f)) / (float)(image_width-1)};
                 const auto v{((float)j + RNG::get().generate_float(0.f,1.f) )/ (float)(image_height-1)};
                 const Ray r{viewpoint, lower_left - viewpoint + u*horizontal + v*vertical}; //Generate the ray from viewpoint to pixel location
-                col +=ray_color(r,v_hittables, light,max_depth);
+                col +=ray_color(r,v_hittables, light,max_depth, 0.f, std::numeric_limits<float>::max() );
             }
 
             print_color(std::cout,col, samples_per_pixel);
