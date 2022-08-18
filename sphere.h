@@ -41,7 +41,7 @@ constexpr std::optional<float> Sphere::isHit(const Ray& r, float low, float high
     const auto A{r.direction().length_squared()};
     const auto B{dot(r.direction(),oc)}; //technically half_b
     const auto C{oc.length_squared() - (m_radius_*m_radius_)};
-    const auto discriminant = (B*B) - 4*A*C;
+    const auto discriminant = (B*B) - A*C;
 
     if(discriminant < 0 )return {}; //no roots
 
