@@ -14,3 +14,4 @@ C++17
 - What happens with double-sided triangles?
 - Current RGN singleton will use same seed every time
 - More constexpr-ness by using array for hittables instead of a vector
+- Make a Norm3 class for unit normals

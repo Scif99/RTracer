@@ -9,6 +9,7 @@
 - A hittable may have a predetermined color associated with it
 */
 
+
 class Hittable
 {
     const std::optional<Color> op_color_;
@@ -16,8 +17,6 @@ protected:
     constexpr  Hittable(std::optional<Color> col): op_color_{col} {} // = default;
     
 public:
-    using hit_data = std::tuple<float, Point3, Vec3>;
-
     virtual ~Hittable() = default;
     Hittable(const Hittable&) = delete;
     Hittable& operator=(const Hittable&) = delete;
@@ -27,4 +26,5 @@ public:
 
     const std::optional<Color> color() const {return op_color_;}
     bool is_mirror{false};
+    bool is_dielectric{false};
 };

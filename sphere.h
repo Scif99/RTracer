@@ -57,7 +57,7 @@ constexpr std::optional<float> Sphere::isHit(const Ray& r, float low, float high
     return t;
 }
 
-//Return the normalized normal at intersection point
+//Return the unit normal at intersection point
 constexpr Vec3 Sphere::outward_normal(const Ray& r, float t) const noexcept
 {
     return unit_vector(r.at(t) - m_centre_);

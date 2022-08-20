@@ -81,7 +81,7 @@ constexpr std::optional<float> Triangle::isHit(const Ray& r, float low, float hi
 
 }
 
-//Return normalised normal
+//Return unit normal
 constexpr Vec3 Triangle::outward_normal(const Ray& r, float t) const noexcept
 {
     return unit_vector(m_normal_);

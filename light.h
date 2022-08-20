@@ -7,8 +7,8 @@ A class for a point light source
 
 class Light
 {
-Point3 m_point_; //
-Color m_intensity_; //an rgb intensity
+    Point3 m_point_; //
+    Color m_intensity_; //an rgb intensity
 
 public:
     ~Light() = default;

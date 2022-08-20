@@ -6,6 +6,7 @@
 #include <array>
 #include <cassert>
 #include <iostream>
+#include <optional>
 #include <random>
 #include "utility.h"
 
@@ -113,12 +114,42 @@ Vec3 random_in_unit_sphere() {
 
 Vec3 reflected(const Vec3& d, const Vec3& n)
 {
-    return d - 2*dot(d,n)*n;
+    const auto ud = unit_vector(d);
+    const auto un = unit_vector(n);
+    return ud - 2*dot(ud,un)*un;
+}
+
+//Returns the direction of a refracted ray if refraction is possible.
+// outward_normal should be the outwards-facing normal of the surface
+std::optional<Vec3> refracted(const Vec3& in_direction,const Vec3& outward_normal, float before_eta, float after_eta)
+{
+    const auto ratio{before_eta/after_eta}; 
+
+    const auto ud = unit_vector(in_direction);
+    const auto un = unit_vector(outward_normal);
+
+
+
+    const auto cosine{-dot(ud,un)}; //cosine should always be positive
+    assert(cosine>0.f);
+    const auto B = 1.f - ratio*ratio*(1-(cosine*cosine));
+    if(B<0) {return std::nullopt;} //Total internal reflection
+    const auto A = ratio*(ud - (un *cosine));
+    return  A-(sqrtf(B)*un);
+
 }
 
 //Aliases
 using Point3 = Vec3;
 using Color = Vec3;
+
+
+class Norm3 : public Vec3
+{
+
+    Norm3(const Vec3& v);
+};
+
 
 void print_color(std::ostream &out, const Color& pixel_color, int samples_per_pixel) {
 
@@ -128,11 +159,11 @@ void print_color(std::ostream &out, const Color& pixel_color, int samples_per_pi
     auto g = pixel_color.y();
     auto b = pixel_color.z();
 
-    // Divide the color by the number of samples.
+    // Divide the color by the number of samples with a gamma correction value of 2
     auto scale = 1.f / samples_per_pixel;
-    r *= scale;
-    g *= scale;
-    b *= scale;
+    r = sqrtf(r*scale);
+    g = sqrtf(g*scale);
+    b = sqrtf(b*scale);
 
     // Write the translated [0,255] value of each color component.
     out << static_cast<int>(256 * clamp(r, 0.f, 0.999f)) << ' '

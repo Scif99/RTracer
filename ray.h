@@ -1,6 +1,12 @@
 #pragma once
 #include "vec3.h"
 
+/*
+- A ray is defined by an origin and a direction vector
+- The Ray constructor normalises the direcction vector parameter
+
+*/
+
 class Ray
 {
 
@@ -18,7 +24,7 @@ public:
 
 
     constexpr Ray(const Point3& origin, const Vec3& dir)
-        : m_dir_{dir}, m_origin_{origin} {}
+        : m_dir_{unit_vector(dir)}, m_origin_{origin} {}
 
     constexpr Point3 at(float t) const noexcept {return m_origin_ + t*m_dir_;}
 
