@@ -13,10 +13,10 @@ public:
     };
 
     Material(MaterialType type, const Color& color)
-        : m_type_{type}, m_albedo_{color} {}
+        : m_type{type}, m_albedo{color} {}
     
 public:
-    MaterialType m_type_;
-    Color m_albedo_;
+    MaterialType m_type;
+    Color m_albedo;
 
 };

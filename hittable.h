@@ -13,6 +13,9 @@
 
 class Material;
 
+/*
+- A simple struct to store useful information from a ray intersection
+*/
 struct HitData
 {
     float hit_param; //ray parameter at intersection

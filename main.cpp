@@ -27,14 +27,15 @@ HittableList random_scene() {
 
     using std::make_shared;
 
-    const auto ground_material = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.5, 0.5, 0.5));
+    const auto ground_material = make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.5, 0.5, 0.5));
+    //world.add(std::make_shared<Sphere>(Point3(0.f,-100.5f,-1.f), 100.f, ground_material ));
 
-    world.add(std::make_shared<Sphere>(Point3(0,-1000,0), 1000, ground_material));
+    world.add(std::make_shared<Sphere>(Point3(0.f,-1000.f,0.f), 1000.f, ground_material));
 
     for (int a = -11; a < 11; a++) {
         for (int b = -11; b < 11; b++) {
             auto choose_mat = RNG::get().generate_float(0.f,1.f);
-            Point3 center(a + 0.9f*RNG::get().generate_float(0.f,1.f), 0.2f, b + 0.9f*RNG::get().generate_float(0.f,1.f));
+            const auto center = Point3{ a + 0.9f*RNG::get().generate_float(0.f,1.f), 0.2f, b + 0.9f*RNG::get().generate_float(0.f,1.f) };
 
             if ((center - Point3(4, 0.2, 0)).length() > 0.9) {
                 std::shared_ptr<Material> sphere_material;
@@ -58,14 +59,14 @@ HittableList random_scene() {
         }
     }
 
-    auto material1 = make_shared<Material>(Material::MaterialType::DIELECTRIC, Color(0.4, 0.2, 0.1) );
-    world.add(make_shared<Sphere>(Point3(0.f, 1.f, 0.f), 1.f, material1));
+     const auto material1 = make_shared<Material>(Material::MaterialType::DIELECTRIC, Color(0.4, 0.2, 0.1) );
+     world.add(make_shared<Sphere>(Point3(0.f, 1.f, -1.f), 1.f, material1));
 
-    auto material2 = make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.4, 0.2, 0.1));
-    world.add(make_shared<Sphere>(Point3(-4.f, 1.f, 0.f), 1.f, material2));
+     const auto material2 = make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.4, 0.2, 0.1));
+     world.add(make_shared<Sphere>(Point3(-4.f, 1.f, -1.f), 1.f, material2));
 
-    auto material3 = make_shared<Material>(Material::MaterialType::MIRROR, Color(0.7, 0.6, 0.5));
-    world.add(make_shared<Sphere>(Point3(4.f, 1.f, 0.f), 1.f, material3));
+     const auto material3 = make_shared<Material>(Material::MaterialType::MIRROR, Color(0.7, 0.6, 0.5));
+     world.add(make_shared<Sphere>(Point3(4.f, 1.f, -1.f), 1.f, material3));
 
     return world;
 }
@@ -77,7 +78,7 @@ Color ray_color(const Ray& ray, const HittableList& scene, const Light& light, f
 
     if(depth<=0) return Color(0.f);
 
-    auto hit_data = scene.hit(ray, t_low, t_high);
+    auto hit_data{ scene.hit(ray, t_low, t_high) };
     if(!hit_data)
     {
         //ray didn't intersect anything - return background color
@@ -90,20 +91,20 @@ Color ray_color(const Ray& ray, const HittableList& scene, const Light& light, f
     constexpr auto eps{0.001f}; //prevent self intersection
 
     //Ambient 
-    constexpr float ambient_strength{0.2f};
-    const Color ambient_light = ambient_strength*light.intensity();
+    constexpr auto ambient_strength{0.2f};
+    const auto ambient_light{ ambient_strength*light.intensity() };
 
-    if(hit_data.value().mat_ptr->m_type_ == Material::MaterialType::MIRROR && depth>0)
+    if(hit_data.value().mat_ptr->m_type == Material::MaterialType::MIRROR && depth>0)
     {
         const auto reflected_dir{ unit_vector(reflected(unit_vector(ray.direction()), hit_data.value().hit_normal)) };
         const auto reflected_ray = Ray{ hit_data.value().hit_point, reflected_dir }; 
-        const auto attenuation = Color{ hit_data.value().mat_ptr->m_albedo_ };
+        const auto attenuation = Color{ hit_data.value().mat_ptr->m_albedo };
 
         return attenuation * ray_color(reflected_ray, scene, light, eps, std::numeric_limits<float>::max(), depth-1);
         //***SHOULD THIS ALSO ADD SOME AMBIENT LIGHT?****
     }
 
-    if(hit_data.value().mat_ptr->m_type_ == Material::MaterialType::DIELECTRIC && depth>0)
+    if(hit_data.value().mat_ptr->m_type == Material::MaterialType::DIELECTRIC && depth>0)
     {
     
         //for now assume all dielectrics have the same refractive index.
@@ -122,12 +123,10 @@ Color ray_color(const Ray& ray, const HittableList& scene, const Light& light, f
         const auto reflected_ray = Ray{hit_data.value().hit_point, unit_vector(reflected(unit_direction, hit_data.value().hit_normal)) };
         const std::optional<Vec3> transmitted_dir = refracted(unit_direction, hit_data.value().hit_normal, refraction_ratio);
 
-        if(!transmitted_dir)
-        {
-            return attenuation * ray_color(reflected_ray, scene, light, eps, std::numeric_limits<float>::max(), depth-1);
-        }
+        if(!transmitted_dir) return attenuation * ray_color(reflected_ray, scene, light, eps, std::numeric_limits<float>::max(), depth-1);
 
         const auto transmitted_ray = Ray{ hit_data.value().hit_point, transmitted_dir.value() };
+
         //compute reflectance using schlick approximation 
         auto r0{(1 - refraction_ratio) / (1 + refraction_ratio)};
         r0 *= r0;
@@ -137,31 +136,31 @@ Color ray_color(const Ray& ray, const HittableList& scene, const Light& light, f
                             (1 - reflectance) * ray_color(transmitted_ray, scene, light, eps, std::numeric_limits<float>::max(), depth-1)  );
 
     }
-    //Surface is diffuse
-    //Shade using Blinn-Phong model
+
+    //Shade diffuse surface using Blinn-Phong model
     else
     {
         //Check if ray is a shadow ray
         if(const auto param = scene.hit( Ray{ hit_data.value().hit_point, light_dir}, eps, std::numeric_limits<float>::max()); param)
         {
             //if an intersection occured then this ray is a shadow ray - return ambient component
-            return ambient_light* hit_data.value().mat_ptr->m_albedo_;
+            return ambient_light* hit_data.value().mat_ptr->m_albedo;
         }
 
 
         //Diffuse 
-        const float diff_angle = dot(hit_data.value().hit_normal, light_dir);
-        const Color diffuse_light{light.intensity() * std::max(0.f, diff_angle)};
+        const auto diff_angle{ dot(hit_data.value().hit_normal, light_dir) };
+        const auto diffuse_light = Color{light.intensity() * std::max(0.f, diff_angle)};
 
         //Specular
-        constexpr float specular_strength{0.5f};
-        const Vec3 v = unit_vector(- ray.direction());
-        const Vec3 h{unit_vector(light_dir+v)};
-        const float spec_angle{dot(hit_data.value().hit_normal, h)};
-        constexpr auto phong_exp{2<<6}; //2^3 ~ 10
+        constexpr auto specular_strength{0.5f};
+        const auto v{ unit_vector(- ray.direction()) };
+        const auto h{ unit_vector(light_dir+v) };
+        const auto spec_angle{ dot(hit_data.value().hit_normal, h)};
+        const auto phong_exp{2<<6}; //2^3 ~ 10
         const Color specular_light{specular_strength*(float)std::pow(std::max(0.f, spec_angle), phong_exp)};
 
-        return (ambient_light + diffuse_light + specular_light)* hit_data.value().mat_ptr->m_albedo_;
+        return (ambient_light + diffuse_light + specular_light)* hit_data.value().mat_ptr->m_albedo;
     }
     
 }
@@ -175,37 +174,46 @@ int main()
     constexpr auto image_height = static_cast<int>((float)image_width/aspect_ratio);
 
     //Lights
-    constexpr Light light{Point3{0.f,1.f,1.f}, Color{0.5f,0.5f,0.5f}};
-    constexpr auto samples_per_pixel{1};
-    constexpr auto max_depth{5};
+    constexpr auto light = Light{Point3{0.f,10.f,1.f}, Color{0.5f,0.5f,0.5f}};
+    constexpr auto samples_per_pixel{100};
+    constexpr auto max_depth{30};
 
     //---------------------
     //Add geometry to scene
     //-----------------------
 
-    HittableList world;
+    HittableList world = random_scene();
 
-    //Materials
-    auto material_ground = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.8, 0.8, 0.0));
-    auto diffuse = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.7, 0.3, 0.3));
-    auto dielectric   = std::make_shared<Material>(Material::MaterialType::DIELECTRIC, Color(0.8, 0.8, 0.8));
-    auto mirror  = std::make_shared<Material>(Material::MaterialType::MIRROR, Color(0.8, 0.6, 0.2));
+    // //Materials
+    // auto material_ground = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.8, 0.8, 0.0));
+    // auto diffuse = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.7, 0.3, 0.3));
+    // auto dielectric   = std::make_shared<Material>(Material::MaterialType::DIELECTRIC, Color(0.8, 0.8, 0.8));
+    // auto mirror  = std::make_shared<Material>(Material::MaterialType::MIRROR, Color(0.8, 0.6, 0.2));
 
-    //left Sphere
-    world.add(std::make_shared<Sphere>(Point3{-1.f,0.f,-1.f}, 0.5f, dielectric ));
+    // world.add(std::make_shared<Sphere>(Point3( 0.f, -100.5f, -1.f), 100.f, material_ground));
+    // world.add(std::make_shared<Sphere>(Point3( 0.f,    0.f, -1.f),   0.5f, diffuse));
+    // world.add(std::make_shared<Sphere>(Point3(-1.f,    0.f, -1.f),   0.5f, dielectric));
+    // world.add(std::make_shared<Sphere>(Point3(-1.f,    0.f, -1.f), -0.45f, dielectric));
+    // world.add(std::make_shared<Sphere>(Point3( 1.f,    0.f, -1.f),   0.5f, mirror));
+    //Camera cam(Point3(-2,2,1), Point3(0,0,-1), Vec3(0,1,0), 20, aspect_ratio);
 
-    //middle Sphere
-    world.add(std::make_shared<Sphere>(Point3{0.f,0.f,-1.f}, 0.5f, diffuse));
+    // //left Sphere
+    // world.add(std::make_shared<Sphere>(Point3{-1.f,0.f,-1.f}, 0.5f, dielectric ));
 
-    //right Sphere
-    world.add(std::make_shared<Sphere>(Point3{1.f,0.f,-1.f}, 0.5f, mirror));
+    // //middle Sphere
+    // world.add(std::make_shared<Sphere>(Point3{0.f,0.f,-1.f}, 0.5f, diffuse));
 
-    //ground 
-    world.add(std::make_shared<Sphere>(Point3(0.f,-100.5f,-1.f), 100.f, material_ground ));
+    // //right Sphere
+    // world.add(std::make_shared<Sphere>(Point3{1.f,0.f,-1.f}, 0.5f, mirror));
+
+    // //ground 
+    // world.add(std::make_shared<Sphere>(Point3(0.f,-100.5f,-1.f), 100.f, material_ground ));
 
     // Camera
-
-    Camera camera(90.f, aspect_ratio);
+    Point3 lookfrom(13.f,2.f,3.f);
+    Point3 lookat(0.f,0.f,0.f);
+    Vec3 vup(0.f,1.f,0.f);
+    Camera cam(lookfrom, lookat, vup, 20, aspect_ratio);
 
     //---------------------
     //Draw image
@@ -223,7 +231,7 @@ int main()
             {
                 const auto u{((float)i + RNG::get().generate_float(0.f,1.f)) / (float)(image_width-1)};
                 const auto v{((float)j + RNG::get().generate_float(0.f,1.f) )/ (float)(image_height-1)};
-                const Ray r = camera.get_ray(u,v);
+                const Ray r = cam.get_ray(u,v);
                 col +=ray_color(r, world, light, 0.f, std::numeric_limits<float>::max(), max_depth );
             }
 

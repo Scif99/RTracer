@@ -4,7 +4,7 @@ std::optional<HitData> Triangle::hit(const Ray& r, float low, float high) const
 {
     std::optional<HitData> data = std::nullopt;
 
-    if(dot(r.direction(),m_normal_)==0) {return data;} //ray and triangle are parallel
+    if(dot(r.direction(),m_normal)==0) {return data;} //ray and triangle are parallel
 
     //Write all coefficients of the matrix... (p. 78 in Shirley)
     //LHS
@@ -36,6 +36,6 @@ std::optional<HitData> Triangle::hit(const Ray& r, float low, float high) const
     const auto t{-1.f*(F*(A*K - J*B) + E*(J*C - A*L) + D*(B*L - K*C)) / M};
 
     if(t > high || t < low) {return data;} //If parameter is outside the range, ignore it
-    return HitData{t,r.at(t),outward_normal(r,t), mat_ptr_};
+    return HitData{t,r.at(t),outward_normal(r,t), mat_ptr};
 
 }

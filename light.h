@@ -7,8 +7,8 @@ A class for a point light source
 
 class Light
 {
-    Point3 m_point_; //
-    Color m_intensity_; //the color of the light in rgb
+    Point3 m_point; //
+    Color m_intensity; //the color of the light in rgb
 
 public:
     ~Light() = default;
@@ -16,10 +16,10 @@ public:
     //
 
     constexpr Light(Point3 p, Color c)
-        : m_point_{p}, m_intensity_{c} {}
+        : m_point{p}, m_intensity{c} {}
 
-    constexpr Point3 position() const noexcept { return m_point_;}
-    constexpr Color intensity() const noexcept { return m_intensity_;}
+    constexpr Point3 position() const noexcept { return m_point;}
+    constexpr Color intensity() const noexcept { return m_intensity;}
 
 
 };

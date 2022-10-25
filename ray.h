@@ -11,8 +11,8 @@
 class Ray
 {
 private:
-    Vec3 m_dir_;
-    Point3 m_origin_;
+    Vec3 m_dir;
+    Point3 m_origin;
 public:
 
     ~Ray() = default;
@@ -24,10 +24,10 @@ public:
 
 
     constexpr Ray(const Point3& origin, const Vec3& dir)
-        : m_dir_{dir}, m_origin_{origin} {} //should direction be normalised???
+        : m_dir{dir}, m_origin{origin} {} //should direction be normalised???
 
-    constexpr Point3 at(float t) const noexcept {return m_origin_ + t * m_dir_;}
+    constexpr Point3 at(float t) const noexcept {return m_origin + t * m_dir;}
 
-    constexpr Point3 origin() const noexcept {return m_origin_;}
-    constexpr Vec3 direction() const noexcept {return m_dir_;}
+    constexpr Point3 origin() const noexcept {return m_origin;}
+    constexpr Vec3 direction() const noexcept {return m_dir;}
 };

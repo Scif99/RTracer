@@ -21,8 +21,8 @@ public:
 
     static RNG& get() 
     {
-        static RNG s_instance_; //Instantiate on first use
-        return s_instance_;
+        static RNG s_instance; //Instantiate on first use
+        return s_instance;
     }
     float generate_float(float low, float high) {std::uniform_real_distribution<float> dist(low,high); return dist(eng);}
 };

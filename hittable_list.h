@@ -9,13 +9,13 @@
 class HittableList : public Hittable
 {
 public:
-    std::vector<std::shared_ptr<Hittable>> m_objects_;
+    std::vector<std::shared_ptr<Hittable>> m_objects;
 
 public:
     ~HittableList() = default;
     HittableList() = default;
 
-    void add(std::shared_ptr<Hittable> object) { m_objects_.push_back(object); }
+    void add(std::shared_ptr<Hittable> object) { m_objects.push_back(object); }
 
     std::optional<HitData> hit(const Ray& ray, float t_low, float t_high) const override;
 };
@@ -24,8 +24,8 @@ public:
 std::optional<HitData> HittableList::hit(const Ray& ray, float t_low, float t_high) const
 {
     std::optional<HitData> data;
-    auto closest_so_far = t_high;
-    for(const auto& object : m_objects_)
+    auto closest_so_far{ t_high }; //store the parameter of the closest intersection so far
+    for(const auto& object : m_objects)
     {
         if(const auto tmp_data = object->hit(ray, t_low, closest_so_far); tmp_data)
         {

@@ -11,10 +11,10 @@ std::optional<HitData> Sphere::hit(const Ray& r, float t_low, float t_high) cons
     //The resulting equation is a quadratic in the parameter t. Thus a root exists iff t has two distinct roots.
 
     //computer coefficients of the quadratic
-    const auto oc{r.origin() - m_centre_};
+    const auto oc{r.origin() - m_centre};
     const auto A{r.direction().length_squared()};
     const auto half_B{dot(r.direction(), oc)}; 
-    const auto C{dot(oc,oc) - m_radius_*m_radius_};
+    const auto C{dot(oc,oc) - m_radius*m_radius};
     const auto discriminant = half_B*half_B - A*C;
 
     if(discriminant < 0 ) return std::nullopt; //no roots
@@ -37,7 +37,7 @@ std::optional<HitData> Sphere::hit(const Ray& r, float t_low, float t_high) cons
     HitData data;
     data.hit_param = t;
     data.hit_point = r.at(t);
-    data.hit_normal = (data.hit_point - m_centre_) / m_radius_;
-    data.mat_ptr = m_mat_ptr_;
+    data.hit_normal = (data.hit_point - m_centre) / m_radius;
+    data.mat_ptr = m_mat_ptr;
     return data;
 }
