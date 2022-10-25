@@ -57,6 +57,8 @@
         "cstring": "cpp",
         "map": "cpp",
         "set": "cpp",
-        "mutex": "cpp"
-    }
+        "mutex": "cpp",
+        "numbers": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Enabled"
 }

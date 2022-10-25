@@ -10,7 +10,7 @@ image : ./main
 	./main > image.ppm; display image.ppm
 
 main: main.cpp
-	g++ -O2 -std=c++2a main.cpp -o main
+	g++ -O2 -std=c++2a main.cpp sphere.cpp triangle.cpp camera.cpp -o main
 
 clean:
 	rm *.o *.js *.html *.wasm main image out image.ppm
