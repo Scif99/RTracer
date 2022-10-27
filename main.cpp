@@ -17,9 +17,64 @@
 #include "material.h"
 #include "ray.h"
 #include "sphere.h"
+#include "texture.h"
 #include "triangle.h"
 #include "utility.h"
 #include "vec3.h"
+
+
+//A basic scene containing a sphere with each different material
+HittableList basic_scene()
+{
+    HittableList scene;
+
+    //Materials
+    const auto material_ground = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.8, 0.8, 0.0));
+    const auto diffuse = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.7, 0.3, 0.3));
+    const auto dielectric   = std::make_shared<Material>(Material::MaterialType::DIELECTRIC, Color(0.8, 0.8, 0.8));
+    const auto mirror  = std::make_shared<Material>(Material::MaterialType::MIRROR, Color(0.8, 0.6, 0.2));
+
+    //left Sphere
+    scene.add(std::make_shared<Sphere>(Point3{-1.f,0.f,-2.f}, 0.5f, dielectric ));
+
+    //middle Sphere
+    scene.add(std::make_shared<MovingSphere>(Point3{0.f,0.f,-2.f}, Point3{0.f,0.2f,-2.f}, 0.f, 1.f, 0.5f, diffuse));    //moving
+    //scene.add(std::make_shared<Sphere>(Point3{0.f,0.f,-2.f}, 0.5f, diffuse)); //stationary
+
+    //right Sphere
+    scene.add(std::make_shared<Sphere>(Point3{1.f,0.f,-2.f}, 0.5f, mirror));
+
+    //ground 
+    scene.add(std::make_shared<Sphere>(Point3(0.f,-100.5f,-1.f), 100.f, material_ground ));
+
+    //Camera cam(Point3(0.f,0.f,0.f), Point3(0.f,0.f,-1.f), Point3(0.f,1.f,0.f), 90, aspect_ratio);
+
+
+    return scene;
+}
+
+//A scene containing a hollow sphere
+HittableList hollow_scene()
+{
+    HittableList world;
+
+    //Materials
+    const auto material_ground = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.8, 0.8, 0.0));
+    const auto material_center = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.1, 0.2, 0.5));
+    const auto material_left   = std::make_shared<Material>(Material::MaterialType::DIELECTRIC, Color(0.8, 0.8, 0.8));
+    const auto material_right  = std::make_shared<Material>(Material::MaterialType::MIRROR, Color(0.8, 0.6, 0.2));
+
+    world.add(std::make_shared<Sphere>(Point3( 0.f, -100.5f, -1.f), 100.f, material_ground));
+    world.add(std::make_shared<Sphere>(Point3( 0.f,    0.f, -1.f),   0.5f, material_center));
+    world.add(std::make_shared<Sphere>(Point3(-1.f,    0.f, -1.f),   0.5f, material_left));
+    world.add(std::make_shared<Sphere>(Point3(-1.f,    0.f, -1.f), -0.45f, material_left));
+    world.add(std::make_shared<Sphere>(Point3( 1.f,    0.f, -1.f),   0.5f, material_right));
+
+
+    //const Camera cam(Point3(-2,2,1), Point3(0,0,-1), Vec3(0,1,0), 20, aspect_ratio);
+    //constexpr auto light = Light{Point3{0.f,1.f,1.f}, Color{0.5f,0.5f,0.5f}};
+    return world;
+}
 
 HittableList random_scene() {
 
@@ -44,7 +99,8 @@ HittableList random_scene() {
                     // diffuse
                     auto albedo = Color::random() * Color::random();
                     sphere_material = make_shared<Material>(Material::MaterialType::DIFFUSE, albedo);
-                    world.add(make_shared<Sphere>(center, 0.2f, sphere_material));
+                    const auto center2 = center + Vec3(0.f, RNG::get().generate_float(0.f,0.5), 0.f);
+                    world.add(make_shared<MovingSphere>(center, center2, 0.f, 1.f, 0.2f, sphere_material));
                 } else if (choose_mat < 0.95f) {
                     // metal
                     auto albedo = Color::random(0.5f, 1.f);
@@ -72,7 +128,6 @@ HittableList random_scene() {
 }
 
 
-
 // a recursive function that determines the color of a pixel 
 Color ray_color(const Ray& ray, const HittableList& scene, const Light& light, float t_low, float t_high, int depth) {
 
@@ -97,8 +152,8 @@ Color ray_color(const Ray& ray, const HittableList& scene, const Light& light, f
     if(hit_data.value().mat_ptr->m_type == Material::MaterialType::MIRROR && depth>0)
     {
         const auto reflected_dir{ unit_vector(reflected(unit_vector(ray.direction()), hit_data.value().hit_normal)) };
-        const auto reflected_ray = Ray{ hit_data.value().hit_point, reflected_dir }; 
-        const auto attenuation = Color{ hit_data.value().mat_ptr->m_albedo };
+        const auto reflected_ray = Ray{ hit_data.value().hit_point, reflected_dir, ray.time() }; 
+        const auto attenuation = Color{ hit_data.value().mat_ptr->m_albedo->getColor(hit_data.value().tex_coords) }; //query color from texture using texture coordinates
 
         return attenuation * ray_color(reflected_ray, scene, light, eps, std::numeric_limits<float>::max(), depth-1);
         //***SHOULD THIS ALSO ADD SOME AMBIENT LIGHT?****
@@ -120,12 +175,13 @@ Color ray_color(const Ray& ray, const HittableList& scene, const Light& light, f
 
 
         //compute the direction of the transmitted/reflected ray
-        const auto reflected_ray = Ray{hit_data.value().hit_point, unit_vector(reflected(unit_direction, hit_data.value().hit_normal)) };
+        const auto reflected_ray = Ray{hit_data.value().hit_point, 
+        unit_vector(reflected(unit_direction, hit_data.value().hit_normal)), ray.time() };
         const std::optional<Vec3> transmitted_dir = refracted(unit_direction, hit_data.value().hit_normal, refraction_ratio);
 
         if(!transmitted_dir) return attenuation * ray_color(reflected_ray, scene, light, eps, std::numeric_limits<float>::max(), depth-1);
 
-        const auto transmitted_ray = Ray{ hit_data.value().hit_point, transmitted_dir.value() };
+        const auto transmitted_ray = Ray{ hit_data.value().hit_point, transmitted_dir.value(), ray.time() };
 
         //compute reflectance using schlick approximation 
         auto r0{(1 - refraction_ratio) / (1 + refraction_ratio)};
@@ -141,10 +197,10 @@ Color ray_color(const Ray& ray, const HittableList& scene, const Light& light, f
     else
     {
         //Check if ray is a shadow ray
-        if(const auto param = scene.hit( Ray{ hit_data.value().hit_point, light_dir}, eps, std::numeric_limits<float>::max()); param)
+        if(const auto param = scene.hit( Ray{ hit_data.value().hit_point, light_dir, ray.time()}, eps, std::numeric_limits<float>::max()); param)
         {
             //if an intersection occured then this ray is a shadow ray - return ambient component
-            return ambient_light* hit_data.value().mat_ptr->m_albedo;
+            return ambient_light* hit_data.value().mat_ptr->m_albedo->getColor(hit_data.value().tex_coords); //query color from texture using texture coordinates
         }
 
 
@@ -159,8 +215,9 @@ Color ray_color(const Ray& ray, const HittableList& scene, const Light& light, f
         const auto spec_angle{ dot(hit_data.value().hit_normal, h)};
         const auto phong_exp{2<<6}; //2^3 ~ 10
         const Color specular_light{specular_strength*(float)std::pow(std::max(0.f, spec_angle), phong_exp)};
-
-        return (ambient_light + diffuse_light + specular_light)* hit_data.value().mat_ptr->m_albedo;
+        
+        //query color from texture using texture coordinates
+        return (ambient_light + diffuse_light + specular_light)* hit_data.value().mat_ptr->m_albedo->getColor(hit_data.value().tex_coords); 
     }
     
 }
@@ -170,50 +227,41 @@ int main()
 
     //Image dimensions (in pixels)
     constexpr auto aspect_ratio{16.f/9.f};
-    constexpr auto image_width{1200}; 
+    constexpr auto image_width{400}; 
     constexpr auto image_height = static_cast<int>((float)image_width/aspect_ratio);
 
     //Lights
-    constexpr auto light = Light{Point3{0.f,10.f,1.f}, Color{0.5f,0.5f,0.5f}};
-    constexpr auto samples_per_pixel{100};
-    constexpr auto max_depth{30};
+    constexpr auto light = Light{Point3{0.f,10.f,0.f}, Color{0.5f,0.5f,0.5f}};
+    constexpr auto samples_per_pixel{2000};
+    constexpr auto max_depth{3};
 
     //---------------------
     //Add geometry to scene
     //-----------------------
 
-    HittableList world = random_scene();
+    //HittableList world = random_scene();
+    HittableList world;
+    auto spotted_texture = std::make_shared<ImageTexture>("ball_spotted.jpg");
+    auto spotted_surface = std::make_shared<Material>(Material::MaterialType::DIFFUSE, spotted_texture );
+    auto spotted = std::make_shared<MovingSphere>(Point3(-1.f,0.f,-3.f), Point3(-0.8f,0.f,-3.f), 0.f, 1.f, 1.f, spotted_surface);
+    world.add(spotted);
 
-    // //Materials
-    // auto material_ground = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.8, 0.8, 0.0));
-    // auto diffuse = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.7, 0.3, 0.3));
-    // auto dielectric   = std::make_shared<Material>(Material::MaterialType::DIELECTRIC, Color(0.8, 0.8, 0.8));
-    // auto mirror  = std::make_shared<Material>(Material::MaterialType::MIRROR, Color(0.8, 0.6, 0.2));
+    auto striped_texture = std::make_shared<ImageTexture>("ball_striped.jpg");
+    auto striped_surface = std::make_shared<Material>(Material::MaterialType::DIFFUSE, striped_texture );
+    auto striped = std::make_shared<Sphere>(Point3(1.f,0.f,-3.f), 1.f, striped_surface);
+    world.add(striped);
 
-    // world.add(std::make_shared<Sphere>(Point3( 0.f, -100.5f, -1.f), 100.f, material_ground));
-    // world.add(std::make_shared<Sphere>(Point3( 0.f,    0.f, -1.f),   0.5f, diffuse));
-    // world.add(std::make_shared<Sphere>(Point3(-1.f,    0.f, -1.f),   0.5f, dielectric));
-    // world.add(std::make_shared<Sphere>(Point3(-1.f,    0.f, -1.f), -0.45f, dielectric));
-    // world.add(std::make_shared<Sphere>(Point3( 1.f,    0.f, -1.f),   0.5f, mirror));
-    //Camera cam(Point3(-2,2,1), Point3(0,0,-1), Vec3(0,1,0), 20, aspect_ratio);
-
-    // //left Sphere
-    // world.add(std::make_shared<Sphere>(Point3{-1.f,0.f,-1.f}, 0.5f, dielectric ));
-
-    // //middle Sphere
-    // world.add(std::make_shared<Sphere>(Point3{0.f,0.f,-1.f}, 0.5f, diffuse));
-
-    // //right Sphere
-    // world.add(std::make_shared<Sphere>(Point3{1.f,0.f,-1.f}, 0.5f, mirror));
-
-    // //ground 
-    // world.add(std::make_shared<Sphere>(Point3(0.f,-100.5f,-1.f), 100.f, material_ground ));
 
     // Camera
     Point3 lookfrom(13.f,2.f,3.f);
     Point3 lookat(0.f,0.f,0.f);
     Vec3 vup(0.f,1.f,0.f);
-    Camera cam(lookfrom, lookat, vup, 20, aspect_ratio);
+    float vfov = 45;
+
+    lookfrom = Point3(0.f,3.f,5.f);
+    lookat = Point3(0.f,0,0);
+
+    Camera cam(lookfrom, lookat, vup, vfov, aspect_ratio);
 
     //---------------------
     //Draw image
@@ -229,9 +277,9 @@ int main()
             Color col{0.f,0.f,0.f};
             for(auto s = 0; s < samples_per_pixel; ++s)
             {
-                const auto u{((float)i + RNG::get().generate_float(0.f,1.f)) / (float)(image_width-1)};
+                const auto u{(i + RNG::get().generate_float(0.f,1.f)) / (image_width-1)};
                 const auto v{((float)j + RNG::get().generate_float(0.f,1.f) )/ (float)(image_height-1)};
-                const Ray r = cam.get_ray(u,v);
+                const Ray r = cam.get_ray(u,v, 0.f,1.f);
                 col +=ray_color(r, world, light, 0.f, std::numeric_limits<float>::max(), max_depth );
             }
 

@@ -25,6 +25,7 @@ public:
         return s_instance;
     }
     float generate_float(float low, float high) {std::uniform_real_distribution<float> dist(low,high); return dist(eng);}
+    float generate_exponentialfloat() {std::exponential_distribution<float> dist(0.5f); return dist(eng);}
 };
 
 

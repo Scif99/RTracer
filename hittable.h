@@ -5,7 +5,7 @@
 #include <memory>
 #include <optional>
 #include <tuple>
-
+#include <utility>
 /*
 - A hittable represents anything that a ray can intersect with
 - A hittable may have a predetermined color associated with it
@@ -22,6 +22,8 @@ struct HitData
     Point3 hit_point; //point of intersection
     Vec3 hit_normal; //(outwards) normal at intersection
     std::shared_ptr<Material> mat_ptr; //material
+    std::pair<float,float> tex_coords;
+
 };
 
 class Hittable

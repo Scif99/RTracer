@@ -26,6 +26,8 @@ public:
 
 
     Ray get_ray(float u, float v) const;
+    Ray get_ray(float u, float v, float time0, float time1) const;
+
 
     
 };

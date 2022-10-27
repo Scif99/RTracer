@@ -23,3 +23,8 @@ Camera::Camera(Point3 lookfrom, Point3 lookat, Vec3 vup,float vfov, float aspect
 Ray Camera::get_ray(float s, float t) const {
     return Ray(m_position, lower_left_corner + s*horizontal + t*vertical - m_position);
 }
+
+//overload for moving objects (motion blur)
+Ray Camera::get_ray(float s, float t, float time0, float time1) const {
+    return Ray(m_position, lower_left_corner + s*horizontal + t*vertical - m_position, RNG::get().generate_exponentialfloat() /*RNG::get().generate_float(time0, time1)*/);
+}
