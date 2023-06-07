@@ -10,6 +10,8 @@ C++17
 - inline variables
 - inline functions
 
+Design
+- vectors suffixed by _dir are normalised?
 
 TO-DO
 - Replace ray-sphere quadratic with more stable version. (https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection)

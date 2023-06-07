@@ -1,6 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/sc2046/Projects/cpp/RTracer'
-g++ -O2 -std=c++2a main.cpp -o main
-./main > image.ppm; display image.ppm
-make: Leaving directory '/home/sc2046/Projects/cpp/RTracer'
- 
