@@ -461,10 +461,6 @@ source/CMakeFiles/RayTracer.dir/main.cpp.o: /home/sc2046/Projects/cpp/RTracer/so
   /usr/include/c++/10/bits/stl_bvector.h \
   /usr/include/c++/10/bits/vector.tcc \
   /usr/include/c++/10/pstl/execution_defs.h \
-  /usr/include/c++/10/chrono \
-  /usr/include/c++/10/ratio \
-  /usr/include/c++/10/ctime \
-  /usr/include/c++/10/bits/parse_numbers.h \
   /usr/include/c++/10/iostream \
   /usr/include/c++/10/ostream \
   /usr/include/c++/10/ios \
@@ -487,23 +483,6 @@ source/CMakeFiles/RayTracer.dir/main.cpp.o: /home/sc2046/Projects/cpp/RTracer/so
   /usr/include/c++/10/numeric \
   /usr/include/c++/10/bits/stl_numeric.h \
   /usr/include/c++/10/pstl/glue_numeric_defs.h \
-  /usr/include/c++/10/thread \
-  /usr/include/c++/10/memory \
-  /usr/include/c++/10/bits/stl_raw_storage_iter.h \
-  /usr/include/c++/10/bits/ranges_uninitialized.h \
-  /usr/include/c++/10/ext/concurrence.h \
-  /usr/include/c++/10/bits/unique_ptr.h \
-  /usr/include/c++/10/bits/shared_ptr.h \
-  /usr/include/c++/10/bits/shared_ptr_base.h \
-  /usr/include/c++/10/bits/allocated_ptr.h \
-  /usr/include/c++/10/bits/shared_ptr_atomic.h \
-  /usr/include/c++/10/bits/atomic_base.h \
-  /usr/include/c++/10/bits/atomic_lockfree_defines.h \
-  /usr/include/c++/10/backward/auto_ptr.h \
-  /usr/include/c++/10/bit \
-  /usr/include/c++/10/pstl/glue_memory_defs.h \
-  /usr/include/c++/10/stop_token \
-  /usr/include/c++/10/atomic \
   /home/sc2046/Projects/cpp/RTracer/source/include/camera.h \
   /home/sc2046/Projects/cpp/RTracer/source/include/ray.h \
   /home/sc2046/Projects/cpp/RTracer/source/include/vec3.h \
@@ -537,10 +516,25 @@ source/CMakeFiles/RayTracer.dir/main.cpp.o: /home/sc2046/Projects/cpp/RTracer/so
   /usr/include/c++/10/bits/random.tcc \
   /home/sc2046/Projects/cpp/RTracer/source/include/utility.h \
   /home/sc2046/Projects/cpp/RTracer/source/include/hittable.h \
+  /usr/include/c++/10/memory \
+  /usr/include/c++/10/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/10/bits/ranges_uninitialized.h \
+  /usr/include/c++/10/ext/concurrence.h \
+  /usr/include/c++/10/bits/unique_ptr.h \
+  /usr/include/c++/10/bits/shared_ptr.h \
+  /usr/include/c++/10/bits/shared_ptr_base.h \
+  /usr/include/c++/10/bits/allocated_ptr.h \
+  /usr/include/c++/10/bits/shared_ptr_atomic.h \
+  /usr/include/c++/10/bits/atomic_base.h \
+  /usr/include/c++/10/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/10/backward/auto_ptr.h \
+  /usr/include/c++/10/bit \
+  /usr/include/c++/10/pstl/glue_memory_defs.h \
   /home/sc2046/Projects/cpp/RTracer/source/include/hittable_list.h \
   /home/sc2046/Projects/cpp/RTracer/source/include/hittable.h \
   /home/sc2046/Projects/cpp/RTracer/source/include/light.h \
   /home/sc2046/Projects/cpp/RTracer/source/include/material.h \
+  /home/sc2046/Projects/cpp/RTracer/source/include/math.h \
   /home/sc2046/Projects/cpp/RTracer/source/include/ray.h \
   /home/sc2046/Projects/cpp/RTracer/source/include/sphere.h \
   /home/sc2046/Projects/cpp/RTracer/source/include/triangle.h \
@@ -755,10 +749,9 @@ source/CMakeFiles/RayTracer.dir/sphere.cpp.o: /home/sc2046/Projects/cpp/RTracer/
   /usr/include/c++/10/bits/stl_vector.h \
   /usr/include/c++/10/bits/stl_bvector.h \
   /usr/include/c++/10/bits/vector.tcc \
-  /home/sc2046/Projects/cpp/RTracer/source/include/sphere.h \
-  /usr/include/c++/10/memory \
-  /usr/include/c++/10/bits/stl_raw_storage_iter.h \
-  /usr/include/c++/10/bits/ranges_uninitialized.h \
+  /home/sc2046/Projects/cpp/RTracer/source/include/vec3.h \
+  /usr/include/c++/10/algorithm \
+  /usr/include/c++/10/bits/ranges_algo.h \
   /usr/include/c++/10/bits/ranges_algobase.h \
   /usr/include/c++/10/ranges \
   /usr/include/c++/10/bits/refwrap.h \
@@ -766,8 +759,20 @@ source/CMakeFiles/RayTracer.dir/sphere.cpp.o: /home/sc2046/Projects/cpp/RTracer/
   /usr/include/c++/10/tuple \
   /usr/include/c++/10/array \
   /usr/include/c++/10/bits/uses_allocator.h \
-  /usr/include/c++/10/ext/concurrence.h \
-  /usr/include/c++/10/bits/unique_ptr.h \
+  /usr/include/c++/10/pstl/glue_algorithm_defs.h \
+  /usr/include/c++/10/functional \
+  /usr/include/c++/10/bits/std_function.h \
+  /usr/include/c++/10/unordered_map \
+  /usr/include/c++/10/ext/aligned_buffer.h \
+  /usr/include/c++/10/bits/hashtable.h \
+  /usr/include/c++/10/bits/hashtable_policy.h \
+  /usr/include/c++/10/bits/node_handle.h \
+  /usr/include/c++/10/bits/unordered_map.h \
+  /usr/include/c++/10/bits/erase_if.h \
+  /usr/include/c++/10/pstl/execution_defs.h \
+  /usr/include/c++/10/cassert \
+  /usr/include/assert.h \
+  /usr/include/c++/10/iostream \
   /usr/include/c++/10/ostream \
   /usr/include/c++/10/ios \
   /usr/include/c++/10/bits/basic_ios.h \
@@ -780,34 +785,6 @@ source/CMakeFiles/RayTracer.dir/sphere.cpp.o: /home/sc2046/Projects/cpp/RTracer/
   /usr/include/c++/10/bits/locale_facets.tcc \
   /usr/include/c++/10/bits/basic_ios.tcc \
   /usr/include/c++/10/bits/ostream.tcc \
-  /usr/include/c++/10/bits/shared_ptr.h \
-  /usr/include/c++/10/bits/shared_ptr_base.h \
-  /usr/include/c++/10/bits/allocated_ptr.h \
-  /usr/include/c++/10/ext/aligned_buffer.h \
-  /usr/include/c++/10/bits/shared_ptr_atomic.h \
-  /usr/include/c++/10/bits/atomic_base.h \
-  /usr/include/c++/10/bits/atomic_lockfree_defines.h \
-  /usr/include/c++/10/backward/auto_ptr.h \
-  /usr/include/c++/10/bit \
-  /usr/include/c++/10/pstl/glue_memory_defs.h \
-  /usr/include/c++/10/pstl/execution_defs.h \
-  /home/sc2046/Projects/cpp/RTracer/source/include/hittable.h \
-  /home/sc2046/Projects/cpp/RTracer/source/include/ray.h \
-  /home/sc2046/Projects/cpp/RTracer/source/include/vec3.h \
-  /usr/include/c++/10/algorithm \
-  /usr/include/c++/10/bits/ranges_algo.h \
-  /usr/include/c++/10/pstl/glue_algorithm_defs.h \
-  /usr/include/c++/10/functional \
-  /usr/include/c++/10/bits/std_function.h \
-  /usr/include/c++/10/unordered_map \
-  /usr/include/c++/10/bits/hashtable.h \
-  /usr/include/c++/10/bits/hashtable_policy.h \
-  /usr/include/c++/10/bits/node_handle.h \
-  /usr/include/c++/10/bits/unordered_map.h \
-  /usr/include/c++/10/bits/erase_if.h \
-  /usr/include/c++/10/cassert \
-  /usr/include/assert.h \
-  /usr/include/c++/10/iostream \
   /usr/include/c++/10/istream \
   /usr/include/c++/10/bits/istream.tcc \
   /usr/include/c++/10/random \
@@ -817,7 +794,24 @@ source/CMakeFiles/RayTracer.dir/sphere.cpp.o: /home/sc2046/Projects/cpp/RTracer/
   /usr/include/c++/10/numeric \
   /usr/include/c++/10/bits/stl_numeric.h \
   /usr/include/c++/10/pstl/glue_numeric_defs.h \
-  /home/sc2046/Projects/cpp/RTracer/source/include/utility.h
+  /home/sc2046/Projects/cpp/RTracer/source/include/utility.h \
+  /home/sc2046/Projects/cpp/RTracer/source/include/sphere.h \
+  /usr/include/c++/10/memory \
+  /usr/include/c++/10/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/10/bits/ranges_uninitialized.h \
+  /usr/include/c++/10/ext/concurrence.h \
+  /usr/include/c++/10/bits/unique_ptr.h \
+  /usr/include/c++/10/bits/shared_ptr.h \
+  /usr/include/c++/10/bits/shared_ptr_base.h \
+  /usr/include/c++/10/bits/allocated_ptr.h \
+  /usr/include/c++/10/bits/shared_ptr_atomic.h \
+  /usr/include/c++/10/bits/atomic_base.h \
+  /usr/include/c++/10/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/10/backward/auto_ptr.h \
+  /usr/include/c++/10/bit \
+  /usr/include/c++/10/pstl/glue_memory_defs.h \
+  /home/sc2046/Projects/cpp/RTracer/source/include/hittable.h \
+  /home/sc2046/Projects/cpp/RTracer/source/include/ray.h
 
 source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/cpp/RTracer/source/triangle.cpp \
   /usr/include/stdc-predef.h \
@@ -1090,17 +1084,13 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/cpp/RTrace
   /home/sc2046/Projects/cpp/RTracer/source/include/utility.h
 
 
-/home/sc2046/Projects/cpp/RTracer/source/include/math.h:
-
 /home/sc2046/Projects/cpp/RTracer/source/sphere.cpp:
 
 /home/sc2046/Projects/cpp/RTracer/source/include/triangle.h:
 
+/home/sc2046/Projects/cpp/RTracer/source/include/math.h:
+
 /home/sc2046/Projects/cpp/RTracer/source/include/hittable_list.h:
-
-/home/sc2046/Projects/cpp/RTracer/source/include/hittable.h:
-
-/usr/include/c++/10/atomic:
 
 /usr/include/c++/10/backward/auto_ptr.h:
 
@@ -1114,11 +1104,9 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/cpp/RTrace
 
 /usr/include/c++/10/memory:
 
+/home/sc2046/Projects/cpp/RTracer/source/include/hittable.h:
+
 /usr/include/strings.h:
-
-/usr/include/c++/10/ctime:
-
-/usr/include/c++/10/ratio:
 
 /usr/include/c++/10/numbers:
 
@@ -1139,8 +1127,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/cpp/RTrace
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /usr/include/c++/10/cwctype:
-
-/usr/include/c++/10/bits/parse_numbers.h:
 
 /usr/include/c++/10/bits/locale_facets.h:
 
@@ -1328,11 +1314,7 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/cpp/RTrace
 
 /usr/include/stdio.h:
 
-/usr/include/c++/10/stop_token:
-
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
-
-/usr/include/c++/10/thread:
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
@@ -1521,8 +1503,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/cpp/RTrace
 /usr/include/c++/10/bits/ranges_algobase.h:
 
 /usr/include/c++/10/iterator:
-
-/usr/include/c++/10/chrono:
 
 /home/sc2046/Projects/cpp/RTracer/source/include/vec3.h:
 
