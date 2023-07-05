@@ -1,1 +1,1 @@
-/usr/bin/c++ -g CMakeFiles/RayTracer.dir/main.cpp.o CMakeFiles/RayTracer.dir/camera.cpp.o CMakeFiles/RayTracer.dir/sphere.cpp.o CMakeFiles/RayTracer.dir/triangle.cpp.o -o RayTracer 
+/usr/bin/c++ -g CMakeFiles/RayTracer.dir/main.cpp.o CMakeFiles/RayTracer.dir/sphere.cpp.o CMakeFiles/RayTracer.dir/triangle.cpp.o -o RayTracer 

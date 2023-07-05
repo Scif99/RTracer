@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sc2046/Projects/cpp/RTracer
+CMAKE_SOURCE_DIR = /home/sc2046/Projects/Graphics/RTracer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sc2046/Projects/cpp/RTracer/build
+CMAKE_BINARY_DIR = /home/sc2046/Projects/Graphics/RTracer/build
 
 # Include any dependencies generated for this target.
 include source/CMakeFiles/RayTracer.dir/depend.make
@@ -70,65 +70,50 @@ include source/CMakeFiles/RayTracer.dir/progress.make
 include source/CMakeFiles/RayTracer.dir/flags.make
 
 source/CMakeFiles/RayTracer.dir/main.cpp.o: source/CMakeFiles/RayTracer.dir/flags.make
-source/CMakeFiles/RayTracer.dir/main.cpp.o: /home/sc2046/Projects/cpp/RTracer/source/main.cpp
+source/CMakeFiles/RayTracer.dir/main.cpp.o: /home/sc2046/Projects/Graphics/RTracer/source/main.cpp
 source/CMakeFiles/RayTracer.dir/main.cpp.o: source/CMakeFiles/RayTracer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sc2046/Projects/cpp/RTracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object source/CMakeFiles/RayTracer.dir/main.cpp.o"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT source/CMakeFiles/RayTracer.dir/main.cpp.o -MF CMakeFiles/RayTracer.dir/main.cpp.o.d -o CMakeFiles/RayTracer.dir/main.cpp.o -c /home/sc2046/Projects/cpp/RTracer/source/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sc2046/Projects/Graphics/RTracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object source/CMakeFiles/RayTracer.dir/main.cpp.o"
+	cd /home/sc2046/Projects/Graphics/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT source/CMakeFiles/RayTracer.dir/main.cpp.o -MF CMakeFiles/RayTracer.dir/main.cpp.o.d -o CMakeFiles/RayTracer.dir/main.cpp.o -c /home/sc2046/Projects/Graphics/RTracer/source/main.cpp
 
 source/CMakeFiles/RayTracer.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RayTracer.dir/main.cpp.i"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sc2046/Projects/cpp/RTracer/source/main.cpp > CMakeFiles/RayTracer.dir/main.cpp.i
+	cd /home/sc2046/Projects/Graphics/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sc2046/Projects/Graphics/RTracer/source/main.cpp > CMakeFiles/RayTracer.dir/main.cpp.i
 
 source/CMakeFiles/RayTracer.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RayTracer.dir/main.cpp.s"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sc2046/Projects/cpp/RTracer/source/main.cpp -o CMakeFiles/RayTracer.dir/main.cpp.s
-
-source/CMakeFiles/RayTracer.dir/camera.cpp.o: source/CMakeFiles/RayTracer.dir/flags.make
-source/CMakeFiles/RayTracer.dir/camera.cpp.o: /home/sc2046/Projects/cpp/RTracer/source/camera.cpp
-source/CMakeFiles/RayTracer.dir/camera.cpp.o: source/CMakeFiles/RayTracer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sc2046/Projects/cpp/RTracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object source/CMakeFiles/RayTracer.dir/camera.cpp.o"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT source/CMakeFiles/RayTracer.dir/camera.cpp.o -MF CMakeFiles/RayTracer.dir/camera.cpp.o.d -o CMakeFiles/RayTracer.dir/camera.cpp.o -c /home/sc2046/Projects/cpp/RTracer/source/camera.cpp
-
-source/CMakeFiles/RayTracer.dir/camera.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RayTracer.dir/camera.cpp.i"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sc2046/Projects/cpp/RTracer/source/camera.cpp > CMakeFiles/RayTracer.dir/camera.cpp.i
-
-source/CMakeFiles/RayTracer.dir/camera.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RayTracer.dir/camera.cpp.s"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sc2046/Projects/cpp/RTracer/source/camera.cpp -o CMakeFiles/RayTracer.dir/camera.cpp.s
+	cd /home/sc2046/Projects/Graphics/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sc2046/Projects/Graphics/RTracer/source/main.cpp -o CMakeFiles/RayTracer.dir/main.cpp.s
 
 source/CMakeFiles/RayTracer.dir/sphere.cpp.o: source/CMakeFiles/RayTracer.dir/flags.make
-source/CMakeFiles/RayTracer.dir/sphere.cpp.o: /home/sc2046/Projects/cpp/RTracer/source/sphere.cpp
+source/CMakeFiles/RayTracer.dir/sphere.cpp.o: /home/sc2046/Projects/Graphics/RTracer/source/sphere.cpp
 source/CMakeFiles/RayTracer.dir/sphere.cpp.o: source/CMakeFiles/RayTracer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sc2046/Projects/cpp/RTracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object source/CMakeFiles/RayTracer.dir/sphere.cpp.o"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT source/CMakeFiles/RayTracer.dir/sphere.cpp.o -MF CMakeFiles/RayTracer.dir/sphere.cpp.o.d -o CMakeFiles/RayTracer.dir/sphere.cpp.o -c /home/sc2046/Projects/cpp/RTracer/source/sphere.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sc2046/Projects/Graphics/RTracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object source/CMakeFiles/RayTracer.dir/sphere.cpp.o"
+	cd /home/sc2046/Projects/Graphics/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT source/CMakeFiles/RayTracer.dir/sphere.cpp.o -MF CMakeFiles/RayTracer.dir/sphere.cpp.o.d -o CMakeFiles/RayTracer.dir/sphere.cpp.o -c /home/sc2046/Projects/Graphics/RTracer/source/sphere.cpp
 
 source/CMakeFiles/RayTracer.dir/sphere.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RayTracer.dir/sphere.cpp.i"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sc2046/Projects/cpp/RTracer/source/sphere.cpp > CMakeFiles/RayTracer.dir/sphere.cpp.i
+	cd /home/sc2046/Projects/Graphics/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sc2046/Projects/Graphics/RTracer/source/sphere.cpp > CMakeFiles/RayTracer.dir/sphere.cpp.i
 
 source/CMakeFiles/RayTracer.dir/sphere.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RayTracer.dir/sphere.cpp.s"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sc2046/Projects/cpp/RTracer/source/sphere.cpp -o CMakeFiles/RayTracer.dir/sphere.cpp.s
+	cd /home/sc2046/Projects/Graphics/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sc2046/Projects/Graphics/RTracer/source/sphere.cpp -o CMakeFiles/RayTracer.dir/sphere.cpp.s
 
 source/CMakeFiles/RayTracer.dir/triangle.cpp.o: source/CMakeFiles/RayTracer.dir/flags.make
-source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/cpp/RTracer/source/triangle.cpp
+source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/RTracer/source/triangle.cpp
 source/CMakeFiles/RayTracer.dir/triangle.cpp.o: source/CMakeFiles/RayTracer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sc2046/Projects/cpp/RTracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object source/CMakeFiles/RayTracer.dir/triangle.cpp.o"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT source/CMakeFiles/RayTracer.dir/triangle.cpp.o -MF CMakeFiles/RayTracer.dir/triangle.cpp.o.d -o CMakeFiles/RayTracer.dir/triangle.cpp.o -c /home/sc2046/Projects/cpp/RTracer/source/triangle.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sc2046/Projects/Graphics/RTracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object source/CMakeFiles/RayTracer.dir/triangle.cpp.o"
+	cd /home/sc2046/Projects/Graphics/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT source/CMakeFiles/RayTracer.dir/triangle.cpp.o -MF CMakeFiles/RayTracer.dir/triangle.cpp.o.d -o CMakeFiles/RayTracer.dir/triangle.cpp.o -c /home/sc2046/Projects/Graphics/RTracer/source/triangle.cpp
 
 source/CMakeFiles/RayTracer.dir/triangle.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RayTracer.dir/triangle.cpp.i"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sc2046/Projects/cpp/RTracer/source/triangle.cpp > CMakeFiles/RayTracer.dir/triangle.cpp.i
+	cd /home/sc2046/Projects/Graphics/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sc2046/Projects/Graphics/RTracer/source/triangle.cpp > CMakeFiles/RayTracer.dir/triangle.cpp.i
 
 source/CMakeFiles/RayTracer.dir/triangle.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RayTracer.dir/triangle.cpp.s"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sc2046/Projects/cpp/RTracer/source/triangle.cpp -o CMakeFiles/RayTracer.dir/triangle.cpp.s
+	cd /home/sc2046/Projects/Graphics/RTracer/build/source && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sc2046/Projects/Graphics/RTracer/source/triangle.cpp -o CMakeFiles/RayTracer.dir/triangle.cpp.s
 
 # Object files for target RayTracer
 RayTracer_OBJECTS = \
 "CMakeFiles/RayTracer.dir/main.cpp.o" \
-"CMakeFiles/RayTracer.dir/camera.cpp.o" \
 "CMakeFiles/RayTracer.dir/sphere.cpp.o" \
 "CMakeFiles/RayTracer.dir/triangle.cpp.o"
 
@@ -136,23 +121,22 @@ RayTracer_OBJECTS = \
 RayTracer_EXTERNAL_OBJECTS =
 
 source/RayTracer: source/CMakeFiles/RayTracer.dir/main.cpp.o
-source/RayTracer: source/CMakeFiles/RayTracer.dir/camera.cpp.o
 source/RayTracer: source/CMakeFiles/RayTracer.dir/sphere.cpp.o
 source/RayTracer: source/CMakeFiles/RayTracer.dir/triangle.cpp.o
 source/RayTracer: source/CMakeFiles/RayTracer.dir/build.make
 source/RayTracer: source/CMakeFiles/RayTracer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sc2046/Projects/cpp/RTracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable RayTracer"
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RayTracer.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sc2046/Projects/Graphics/RTracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable RayTracer"
+	cd /home/sc2046/Projects/Graphics/RTracer/build/source && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RayTracer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 source/CMakeFiles/RayTracer.dir/build: source/RayTracer
 .PHONY : source/CMakeFiles/RayTracer.dir/build
 
 source/CMakeFiles/RayTracer.dir/clean:
-	cd /home/sc2046/Projects/cpp/RTracer/build/source && $(CMAKE_COMMAND) -P CMakeFiles/RayTracer.dir/cmake_clean.cmake
+	cd /home/sc2046/Projects/Graphics/RTracer/build/source && $(CMAKE_COMMAND) -P CMakeFiles/RayTracer.dir/cmake_clean.cmake
 .PHONY : source/CMakeFiles/RayTracer.dir/clean
 
 source/CMakeFiles/RayTracer.dir/depend:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sc2046/Projects/cpp/RTracer /home/sc2046/Projects/cpp/RTracer/source /home/sc2046/Projects/cpp/RTracer/build /home/sc2046/Projects/cpp/RTracer/build/source /home/sc2046/Projects/cpp/RTracer/build/source/CMakeFiles/RayTracer.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sc2046/Projects/Graphics/RTracer /home/sc2046/Projects/Graphics/RTracer/source /home/sc2046/Projects/Graphics/RTracer/build /home/sc2046/Projects/Graphics/RTracer/build/source /home/sc2046/Projects/Graphics/RTracer/build/source/CMakeFiles/RayTracer.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : source/CMakeFiles/RayTracer.dir/depend
 

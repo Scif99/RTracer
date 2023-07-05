@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/sc2046/Projects/cpp/RTracer/source/include
+CXX_INCLUDES = -I/home/sc2046/Projects/Graphics/RTracer/source/include
 
 CXX_FLAGS = -g -std=gnu++2a
 

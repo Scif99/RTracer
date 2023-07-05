@@ -57,23 +57,13 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sc2046/Projects/cpp/RTracer
+CMAKE_SOURCE_DIR = /home/sc2046/Projects/Graphics/RTracer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sc2046/Projects/cpp/RTracer/build
+CMAKE_BINARY_DIR = /home/sc2046/Projects/Graphics/RTracer/build
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-.PHONY : test/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -95,61 +85,16 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/sc2046/Projects/cpp/RTracer/build/CMakeFiles /home/sc2046/Projects/cpp/RTracer/build/source//CMakeFiles/progress.marks
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sc2046/Projects/cpp/RTracer/build/CMakeFiles 0
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/sc2046/Projects/Graphics/RTracer/build/CMakeFiles /home/sc2046/Projects/Graphics/RTracer/build/source//CMakeFiles/progress.marks
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sc2046/Projects/Graphics/RTracer/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/clean
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/clean
 .PHONY : clean
 
 # The main clean target
@@ -158,22 +103,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/preinstall
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/preinstall
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 source/CMakeFiles/RayTracer.dir/rule:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/CMakeFiles/RayTracer.dir/rule
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 source/CMakeFiles/RayTracer.dir/rule
 .PHONY : source/CMakeFiles/RayTracer.dir/rule
 
 # Convenience name for target.
@@ -182,39 +127,15 @@ RayTracer: source/CMakeFiles/RayTracer.dir/rule
 
 # fast build rule for target.
 RayTracer/fast:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/build
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/build
 .PHONY : RayTracer/fast
-
-camera.o: camera.cpp.o
-.PHONY : camera.o
-
-# target to build an object file
-camera.cpp.o:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/camera.cpp.o
-.PHONY : camera.cpp.o
-
-camera.i: camera.cpp.i
-.PHONY : camera.i
-
-# target to preprocess a source file
-camera.cpp.i:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/camera.cpp.i
-.PHONY : camera.cpp.i
-
-camera.s: camera.cpp.s
-.PHONY : camera.s
-
-# target to generate assembly for a file
-camera.cpp.s:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/camera.cpp.s
-.PHONY : camera.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
 
 # target to build an object file
 main.cpp.o:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/main.cpp.o
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -222,7 +143,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/main.cpp.i
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -230,7 +151,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/main.cpp.s
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 sphere.o: sphere.cpp.o
@@ -238,7 +159,7 @@ sphere.o: sphere.cpp.o
 
 # target to build an object file
 sphere.cpp.o:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/sphere.cpp.o
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/sphere.cpp.o
 .PHONY : sphere.cpp.o
 
 sphere.i: sphere.cpp.i
@@ -246,7 +167,7 @@ sphere.i: sphere.cpp.i
 
 # target to preprocess a source file
 sphere.cpp.i:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/sphere.cpp.i
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/sphere.cpp.i
 .PHONY : sphere.cpp.i
 
 sphere.s: sphere.cpp.s
@@ -254,7 +175,7 @@ sphere.s: sphere.cpp.s
 
 # target to generate assembly for a file
 sphere.cpp.s:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/sphere.cpp.s
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/sphere.cpp.s
 .PHONY : sphere.cpp.s
 
 triangle.o: triangle.cpp.o
@@ -262,7 +183,7 @@ triangle.o: triangle.cpp.o
 
 # target to build an object file
 triangle.cpp.o:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/triangle.cpp.o
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/triangle.cpp.o
 .PHONY : triangle.cpp.o
 
 triangle.i: triangle.cpp.i
@@ -270,7 +191,7 @@ triangle.i: triangle.cpp.i
 
 # target to preprocess a source file
 triangle.cpp.i:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/triangle.cpp.i
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/triangle.cpp.i
 .PHONY : triangle.cpp.i
 
 triangle.s: triangle.cpp.s
@@ -278,7 +199,7 @@ triangle.s: triangle.cpp.s
 
 # target to generate assembly for a file
 triangle.cpp.s:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/triangle.cpp.s
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(MAKE) $(MAKESILENT) -f source/CMakeFiles/RayTracer.dir/build.make source/CMakeFiles/RayTracer.dir/triangle.cpp.s
 .PHONY : triangle.cpp.s
 
 # Help Target
@@ -288,16 +209,8 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... test"
 	@echo "... RayTracer"
-	@echo "... camera.o"
-	@echo "... camera.i"
-	@echo "... camera.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -318,6 +231,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/sc2046/Projects/cpp/RTracer/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/sc2046/Projects/Graphics/RTracer/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/sc2046/Projects/cpp/RTracer/source
+# Install script for directory: /home/sc2046/Projects/Graphics/RTracer/source
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -8,10 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/sc2046/Projects/cpp/RTracer/source/camera.cpp" "source/CMakeFiles/RayTracer.dir/camera.cpp.o" "gcc" "source/CMakeFiles/RayTracer.dir/camera.cpp.o.d"
-  "/home/sc2046/Projects/cpp/RTracer/source/main.cpp" "source/CMakeFiles/RayTracer.dir/main.cpp.o" "gcc" "source/CMakeFiles/RayTracer.dir/main.cpp.o.d"
-  "/home/sc2046/Projects/cpp/RTracer/source/sphere.cpp" "source/CMakeFiles/RayTracer.dir/sphere.cpp.o" "gcc" "source/CMakeFiles/RayTracer.dir/sphere.cpp.o.d"
-  "/home/sc2046/Projects/cpp/RTracer/source/triangle.cpp" "source/CMakeFiles/RayTracer.dir/triangle.cpp.o" "gcc" "source/CMakeFiles/RayTracer.dir/triangle.cpp.o.d"
+  "/home/sc2046/Projects/Graphics/RTracer/source/main.cpp" "source/CMakeFiles/RayTracer.dir/main.cpp.o" "gcc" "source/CMakeFiles/RayTracer.dir/main.cpp.o.d"
+  "/home/sc2046/Projects/Graphics/RTracer/source/sphere.cpp" "source/CMakeFiles/RayTracer.dir/sphere.cpp.o" "gcc" "source/CMakeFiles/RayTracer.dir/sphere.cpp.o.d"
+  "/home/sc2046/Projects/Graphics/RTracer/source/triangle.cpp" "source/CMakeFiles/RayTracer.dir/triangle.cpp.o" "gcc" "source/CMakeFiles/RayTracer.dir/triangle.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
