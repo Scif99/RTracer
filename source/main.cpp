@@ -161,7 +161,7 @@ Color RayColor(const Ray& ray, const HittableList& scene, const PointLight& ligh
         const auto spec_angle{ std::max(0.f, Dot(hit_normal, h))};
         const Color specular_color{light.intensity*(std::pow(spec_angle, mat_ptr->specular_exponent))};
         
-        return diffuse_light*(mat_ptr->Kd) + specular_color * mat_ptr->Ks; 
+        return diffuse_light*(mat_ptr->Kd) + specular_color * (mat_ptr->Ks); 
     }
     
 }
@@ -174,10 +174,10 @@ int main()
     constexpr auto image_width{900}; 
     constexpr auto image_height = static_cast<int>(static_cast<float>(image_width)/aspect_ratio);
     // Camera
-    Point3 lookfrom(13.f,2.f,3.f);
-    Point3 lookat(0.f,0.f,0.f);
-    Vec3 vup(0.f,1.f,0.f);
-    float vfov = 20;
+    constexpr auto lookfrom = Vec3{13.f,2.f,3.f};
+    constexpr auto lookat = Vec3{0.f,0.f,0.f};
+    constexpr auto vup = Vec3{0.f,1.f,0.f};
+    constexpr auto vfov{20.f};
     Camera cam(lookfrom, lookat, vup, vfov, aspect_ratio);
 
     //---------------------
@@ -198,8 +198,8 @@ int main()
 
     //Lights
     constexpr auto light = PointLight{Point3{0.f,70.f,20.f}, Color{0.5f,0.5f,0.5f}};
-    constexpr auto samples_per_pixel{50};
-    constexpr auto max_depth{10};
+    constexpr auto samples_per_pixel{10};
+    constexpr auto max_depth{5};
 
 
     //---------------------

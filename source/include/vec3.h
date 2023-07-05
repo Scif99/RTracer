@@ -21,8 +21,8 @@ public:
     using Point3 = Vec3;
     using Color = Vec3;
 
-    ~Vec3() = default;
-    Vec3() = default;
+    constexpr ~Vec3() = default;
+    constexpr Vec3() = default;
     constexpr Vec3(const Vec3& other) = default;
     constexpr Vec3& operator=(const Vec3& other) = default;
     constexpr Vec3(Vec3&& other) noexcept = default;

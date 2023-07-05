@@ -26,7 +26,6 @@ public:
 
     /// @brief Optionally returns data at an intersection
     virtual std::optional<HitData> Hit(const Ray& ray, float t_low, float t_high) const = 0; 
-
 };
 
 #endif

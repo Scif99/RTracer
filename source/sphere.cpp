@@ -12,6 +12,8 @@
 /// @return An optional which contains data from the intersection, if one occured, or null.
 std::optional<HitData> Sphere::Hit(const Ray& r, float t_low, float t_high) const
 {
+    //if(const auto hitaabb = m_aabb.Hit(r,t_low,t_high); !hitaabb) {return std::nullopt;}
+
     //The maths for an intersection between a ray and sphere results in a quadratic in the ray parameter t.
     //There is an intersection iff t has two distinct roots.
     const auto origin_to_centre_vec{r.Origin() - m_centre};
@@ -41,6 +43,6 @@ std::optional<HitData> Sphere::Hit(const Ray& r, float t_low, float t_high) cons
         Norm3(r.At(closest_root) - m_centre),
         m_mat_ptr
     };
-    return data;
+    return  data;
 }   
 
