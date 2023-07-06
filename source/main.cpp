@@ -26,9 +26,6 @@ static constexpr auto eps{0.001f}; //bias to prevent self-intersection
 
 
 HittableList RandomScene() {
-
-    using namespace std;
-
     HittableList world;
     
     const auto mat_ground = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.5f, 0.5f, 0.5f));
@@ -45,30 +42,30 @@ HittableList RandomScene() {
                 if (choose_mat < 0.8f) {
                     // diffuse
                     const auto albedo = Color::Random() * Color::Random();
-                    sphere_material = make_shared<Material>(Material::MaterialType::DIFFUSE, albedo);
-                    world.Add(make_shared<Sphere>(center, 0.2f, sphere_material));
+                    sphere_material = std::make_shared<Material>(Material::MaterialType::DIFFUSE, albedo);
+                    world.Add(std::make_shared<Sphere>(center, 0.2f, sphere_material));
                 } else if (choose_mat < 0.95) {
                     // metal
                     const auto albedo = Color::Random(0.5f, 1.f);
-                    sphere_material = make_shared<Material>(Material::MaterialType::MIRROR, albedo);
-                    world.Add(make_shared<Sphere>(center, 0.2f, sphere_material));
+                    sphere_material = std::make_shared<Material>(Material::MaterialType::MIRROR, albedo);
+                    world.Add(std::make_shared<Sphere>(center, 0.2f, sphere_material));
                 } else {
                     // glass
-                    const auto sphere_material = make_shared<Material>(Material::MaterialType::DIELECTRIC,Vec3(0.5f,0.5f,0.5f));
-                    world.Add(make_shared<Sphere>(center, 0.2, sphere_material));
+                    const auto sphere_material = std::make_shared<Material>(Material::MaterialType::DIELECTRIC,Vec3(0.5f,0.5f,0.5f));
+                    world.Add(std::make_shared<Sphere>(center, 0.2, sphere_material));
                 }
             }
         }
     }
 
-    auto material1 = make_shared<Material>(Material::MaterialType::DIELECTRIC,Color(0.2f,0.2f,0.2f));
-    world.Add(make_shared<Sphere>(Point3(0, 1, 0), 1.0, material1));
+    auto material1 = std::make_shared<Material>(Material::MaterialType::DIELECTRIC,Color(0.2f,0.2f,0.2f));
+    world.Add(std::make_shared<Sphere>(Point3(0, 1, 0), 1.0, material1));
 
-    auto material2 = make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.4, 0.2, 0.1));
-    world.Add(make_shared<Sphere>(Point3(-4, 1, 0), 1.0, material2));
+    auto material2 = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.4, 0.2, 0.1));
+    world.Add(std::make_shared<Sphere>(Point3(-4, 1, 0), 1.0, material2));
 
-    auto material3 = make_shared<Material>(Material::MaterialType::MIRROR,  Color(0.7, 0.6, 0.5));
-    world.Add(make_shared<Sphere>(Point3(4, 1, 0), 1.0, material3));
+    auto material3 = std::make_shared<Material>(Material::MaterialType::MIRROR,  Color(0.7, 0.6, 0.5));
+    world.Add(std::make_shared<Sphere>(Point3(4, 1, 0), 1.0, material3));
 
     return world;
 }
@@ -198,8 +195,8 @@ int main()
 
     //Lights
     constexpr auto light = PointLight{Point3{0.f,70.f,20.f}, Color{0.5f,0.5f,0.5f}};
-    constexpr auto samples_per_pixel{10};
-    constexpr auto max_depth{5};
+    constexpr auto samples_per_pixel{1};
+    constexpr auto max_depth{3};
 
 
     //---------------------

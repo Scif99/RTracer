@@ -80,16 +80,13 @@ source/CMakeFiles/RayTracer.dir/main.cpp.o: /home/sc2046/Projects/Graphics/RTrac
   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
-  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
-  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/10/bits/std_abs.h \
   /usr/include/c++/10/bits/algorithmfwd.h \
   /usr/include/c++/10/bits/stl_heap.h \
@@ -113,7 +110,6 @@ source/CMakeFiles/RayTracer.dir/main.cpp.o: /home/sc2046/Projects/Graphics/RTrac
   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
-  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/10/bits/stream_iterator.h \
   /usr/include/c++/10/bits/streambuf_iterator.h \
   /usr/include/c++/10/streambuf \
@@ -170,8 +166,6 @@ source/CMakeFiles/RayTracer.dir/main.cpp.o: /home/sc2046/Projects/Graphics/RTrac
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
-  /usr/include/x86_64-linux-gnu/bits/stdio.h \
-  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/10/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -234,8 +228,6 @@ source/CMakeFiles/RayTracer.dir/main.cpp.o: /home/sc2046/Projects/Graphics/RTrac
   /usr/include/memory.h \
   /usr/include/string.h \
   /usr/include/strings.h \
-  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
-  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
   /usr/include/c++/10/numbers \
   /usr/include/c++/10/numeric \
   /usr/include/c++/10/bits/stl_numeric.h \
@@ -254,7 +246,6 @@ source/CMakeFiles/RayTracer.dir/main.cpp.o: /home/sc2046/Projects/Graphics/RTrac
   /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
   /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
   /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
-  /usr/include/x86_64-linux-gnu/bits/mathinline.h \
   /usr/include/c++/10/bits/specfun.h \
   /usr/include/c++/10/tr1/gamma.tcc \
   /usr/include/c++/10/tr1/special_function_util.h \
@@ -332,7 +323,6 @@ source/CMakeFiles/RayTracer.dir/sphere.cpp.o: /home/sc2046/Projects/Graphics/RTr
   /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
   /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
   /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
-  /usr/include/x86_64-linux-gnu/bits/mathinline.h \
   /usr/include/c++/10/bits/std_abs.h \
   /usr/include/stdlib.h \
   /usr/lib/gcc/x86_64-linux-gnu/10/include/stddef.h \
@@ -357,16 +347,13 @@ source/CMakeFiles/RayTracer.dir/sphere.cpp.o: /home/sc2046/Projects/Graphics/RTr
   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
-  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
-  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/10/bits/specfun.h \
   /usr/include/c++/10/bits/stl_algobase.h \
   /usr/include/c++/10/bits/functexcept.h \
@@ -430,7 +417,6 @@ source/CMakeFiles/RayTracer.dir/sphere.cpp.o: /home/sc2046/Projects/Graphics/RTr
   /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
-  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/10/bits/stream_iterator.h \
   /usr/include/c++/10/bits/streambuf_iterator.h \
   /usr/include/c++/10/streambuf \
@@ -493,8 +479,6 @@ source/CMakeFiles/RayTracer.dir/sphere.cpp.o: /home/sc2046/Projects/Graphics/RTr
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
-  /usr/include/x86_64-linux-gnu/bits/stdio.h \
-  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/10/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -661,7 +645,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
-  /usr/include/x86_64-linux-gnu/bits/wchar2.h \
   /usr/include/c++/10/bits/stream_iterator.h \
   /usr/include/c++/10/bits/streambuf_iterator.h \
   /usr/include/c++/10/streambuf \
@@ -730,11 +713,8 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
   /usr/include/x86_64-linux-gnu/bits/select.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
-  /usr/include/x86_64-linux-gnu/bits/select2.h \
   /usr/include/alloca.h \
-  /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
-  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
   /usr/include/c++/10/bits/std_abs.h \
   /usr/include/c++/10/bits/algorithmfwd.h \
   /usr/include/c++/10/bits/stl_heap.h \
@@ -753,8 +733,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
   /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
-  /usr/include/x86_64-linux-gnu/bits/stdio.h \
-  /usr/include/x86_64-linux-gnu/bits/stdio2.h \
   /usr/include/c++/10/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -816,7 +794,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
   /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
   /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
   /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
-  /usr/include/x86_64-linux-gnu/bits/mathinline.h \
   /usr/include/c++/10/bits/specfun.h \
   /usr/include/c++/10/tr1/gamma.tcc \
   /usr/include/c++/10/tr1/special_function_util.h \
@@ -879,6 +856,8 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 /usr/include/c++/10/random:
 
 /usr/include/c++/10/tr1/poly_laguerre.tcc:
+
+/usr/include/c++/10/tr1/poly_hermite.tcc:
 
 /usr/include/c++/10/tr1/ell_integral.tcc:
 
@@ -944,23 +923,21 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 
 /usr/include/c++/10/vector:
 
-/usr/include/c++/10/bits/erase_if.h:
+/usr/include/c++/10/iterator:
 
-/usr/include/c++/10/bits/stl_uninitialized.h:
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
-/usr/include/c++/10/bits/node_handle.h:
+/usr/include/c++/10/bits/ranges_algo.h:
 
-/usr/include/c++/10/bits/hashtable_policy.h:
+/home/sc2046/Projects/Graphics/RTracer/source/sphere.cpp:
+
+/usr/include/c++/10/typeinfo:
+
+/usr/include/c++/10/bits/basic_string.h:
 
 /usr/include/c++/10/bits/cxxabi_forced.h:
 
 /usr/include/c++/10/bits/algorithmfwd.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
-
-/usr/include/c++/10/tr1/poly_hermite.tcc:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib.h:
 
 /home/sc2046/Projects/Graphics/RTracer/source/include/triangle.h:
 
@@ -1016,8 +993,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
-/usr/include/x86_64-linux-gnu/bits/string_fortified.h:
-
 /usr/include/c++/10/bits/stringfwd.h:
 
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
@@ -1027,10 +1002,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 /usr/include/c++/10/string:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
-
-/usr/include/c++/10/bits/hashtable.h:
-
-/usr/include/c++/10/cstdlib:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
@@ -1049,8 +1020,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 /usr/include/c++/10/optional:
 
 /usr/include/c++/10/new:
-
-/usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
 
 /usr/include/c++/10/bits/ptr_traits.h:
 
@@ -1106,6 +1075,8 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 
 /usr/include/c++/10/cassert:
 
+/usr/include/c++/10/bits/ranges_algobase.h:
+
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
@@ -1120,13 +1091,7 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 
 /usr/include/x86_64-linux-gnu/c++/10/bits/c++locale.h:
 
-/usr/include/c++/10/bits/ranges_algo.h:
-
-/usr/include/c++/10/bits/basic_string.h:
-
 /home/sc2046/Projects/Graphics/RTracer/source/main.cpp:
-
-/usr/include/x86_64-linux-gnu/bits/mathinline.h:
 
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
 
@@ -1204,8 +1169,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 
 /usr/include/c++/10/initializer_list:
 
-/usr/include/x86_64-linux-gnu/bits/wchar2.h:
-
 /usr/include/c++/10/ext/numeric_traits.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/error_t.h:
@@ -1236,12 +1199,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 
 /usr/include/c++/10/concepts:
 
-/home/sc2046/Projects/Graphics/RTracer/source/sphere.cpp:
-
-/usr/include/c++/10/typeinfo:
-
-/usr/include/x86_64-linux-gnu/bits/stdio2.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
 
 /usr/include/c++/10/string_view:
@@ -1258,19 +1215,11 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
-/usr/include/c++/10/bits/iterator_concepts.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio.h:
-
-/usr/include/c++/10/bits/ranges_algobase.h:
-
-/usr/include/c++/10/iterator:
-
-/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+/usr/include/x86_64-linux-gnu/c++/10/bits/gthr.h:
 
 /usr/include/c++/10/debug/debug.h:
 
-/usr/include/x86_64-linux-gnu/c++/10/bits/gthr.h:
+/usr/include/c++/10/bits/iterator_concepts.h:
 
 /usr/include/wchar.h:
 
@@ -1283,10 +1232,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 /usr/include/c++/10/iosfwd:
 
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
-
-/usr/include/c++/10/bits/unordered_map.h:
-
-/usr/include/c++/10/bits/basic_string.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
@@ -1308,9 +1253,9 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 
 /usr/include/c++/10/ext/concurrence.h:
 
-/usr/include/c++/10/ext/aligned_buffer.h:
-
 /usr/lib/gcc/x86_64-linux-gnu/10/include/stdarg.h:
+
+/usr/include/c++/10/ext/aligned_buffer.h:
 
 /usr/include/x86_64-linux-gnu/c++/10/bits/gthr-default.h:
 
@@ -1400,6 +1345,10 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 
 /usr/include/errno.h:
 
+/usr/include/c++/10/bits/stl_uninitialized.h:
+
+/usr/include/c++/10/bits/node_handle.h:
+
 /usr/include/c++/10/bits/string_view.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
@@ -1409,8 +1358,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
-
-/usr/include/x86_64-linux-gnu/bits/select2.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/10/include/stddef.h:
 
@@ -1449,3 +1396,15 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 /usr/include/x86_64-linux-gnu/c++/10/bits/c++io.h:
 
 /usr/include/c++/10/functional:
+
+/usr/include/c++/10/cstdlib:
+
+/usr/include/c++/10/bits/hashtable.h:
+
+/usr/include/c++/10/bits/hashtable_policy.h:
+
+/usr/include/c++/10/bits/basic_string.tcc:
+
+/usr/include/c++/10/bits/unordered_map.h:
+
+/usr/include/c++/10/bits/erase_if.h:

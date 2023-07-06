@@ -6,16 +6,12 @@
 #include <algorithm>
 
 //Returns intersection of intervals (x0,x1) and (y0,y1)
-inline std::optional<std::array<float,2>> Overlap(float x0, float x1, float y0, float y1) {
+static inline std::optional<std::array<float,2>> Overlap(float x0, float x1, float y0, float y1) {
     assert(x0<=x1 && y0<=y1);
 
     if(y1 < x0 || y0 > x1) return std::nullopt;
-
-    std::array<float,2> interval;
-    
-    interval[0] = std::max(x0,y0);
-    interval[1] = std::min(x1,y1);
-    return interval;
+    if(x0==x1 || y0==y1) return std::nullopt;
+    return std::array{std::max(x0,y0),std::min(x1,y1)}; 
 }
 
 class AABB : public Hittable{
@@ -28,28 +24,43 @@ public:
 
 
         //#1 Get t intervals in each dimension
+        //Note the ray might intersect the max plane before min plane... (e.g. if ray is moving in -ve x direction) 
+        //We swap the order if this is the case.
+
         //X planes
-        float t_xmin = (min.X() - ray.Origin().X()) / ray.Direction().X();  //t where ray intersects xmin plane
-        float t_xmax = (max.X() - ray.Origin().X()) / ray.Direction().X(); 
-        if(t_xmin > t_xmax) {std::swap(t_xmin,t_xmax);}
+        const auto rdx{1.f/ray.Direction().X()};
+        float t_xmin = (min.X() - ray.Origin().X()) * rdx;  
+        float t_xmax = (max.X() - ray.Origin().X()) * rdx; 
+        if(t_xmin > t_xmax) {std::swap(t_xmin,t_xmax);} 
 
         //Y planes
-        float t_ymin = (min.Y() - ray.Origin().Y()) / ray.Direction().Y(); 
-        float t_ymax = (max.Y() - ray.Origin().Y()) / ray.Direction().Y(); 
-        if(t_ymin > t_ymax) {std::swap(t_ymin,t_ymax);}       
+        const auto rdy{1.f/ray.Direction().Y()};
+        float t_ymin = (min.Y() - ray.Origin().Y()) * rdy; 
+        float t_ymax = (max.Y() - ray.Origin().Y()) * rdy; 
+        if(t_ymin > t_ymax) {std::swap(t_ymin,t_ymax);}    
+
         //Z planes (remember camera faces -z so need to flip max/min)
-        float t_zmin = (min.Z() - ray.Origin().Z()) / ray.Direction().Z(); 
-        float t_zmax = (max.Z() - ray.Origin().Z()) / ray.Direction().Z(); 
+        const auto rdz{1.f/ray.Direction().Z()};
+        float t_zmin = (min.Z() - ray.Origin().Z()) * rdz; 
+        float t_zmax = (max.Z() - ray.Origin().Z()) * rdz; 
         if(t_zmin > t_zmax) {std::swap(t_zmin,t_zmax);}
 
         //#2 Compute intersection of intervals 
         //Interval from SIDE VIEW 
         const auto yz_interval = Overlap(t_ymin,t_ymax,t_zmin,t_zmax);
-        if(!yz_interval) return std::nullopt; //no overlap
+        if(!yz_interval) return std::nullopt;
 
         //Interval from SIDE VIEW
-        const auto xyz_interval = Overlap(t_xmin,t_xmax, t_zmin, t_zmax);
+        const auto xz_interval = Overlap(t_xmin,t_xmax, t_zmin, t_zmax);
+        if(!xz_interval) return std::nullopt;
+
+        //Now we know that the ray intersects the AABB somewhere, but it might be outside the range specified by the caller
+        //If you think of this range as another set of intersections, then we can compute another overlap to determine
+        //Whether the intersection lies in the valid range.
+        const auto xyz_interval = Overlap(xz_interval.value()[0],xz_interval.value()[1],
+                                          yz_interval.value()[0],yz_interval.value()[1]);
         if(!xyz_interval) return std::nullopt;
+
 
         //Store information from the intersection
         HitData data = {

@@ -20,7 +20,7 @@ public:
 
     Camera(const Point3& lookfrom, const Point3& lookat, const Vec3& vup, float vfov, float aspect_ratio) 
     {
-        const auto theta = float{vfov}; // * std::numbers::pi_v<float> / 180.f; //In Degrees
+        const auto theta = vfov * std::numbers::pi_v<float> / 180.f; //In Degrees
         const auto h{tanf(theta/2)};
         const auto viewport_height{2.f * h};
         const auto viewport_width {aspect_ratio * viewport_height};
