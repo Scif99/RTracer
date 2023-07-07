@@ -7,12 +7,17 @@
 
 #include "hittable.h"
 
+
 /// @brief Represents a group of hittable objects
 class HittableList : public Hittable
 {
 public:
     std::vector<std::shared_ptr<Hittable>> m_objects;
 public:
+    HittableList() = default;
+    
+    HittableList(std::vector<std::shared_ptr<Hittable>>&& list) 
+        : m_objects{std::move(list)} {}
 
     /// @brief Add to the list of hittables
     /// @param object 
@@ -34,6 +39,20 @@ public:
         }
         return data;
     }
+    
+    [[nodiscard]] AABB BoundingBox() const override {
+
+
+        auto aabb = AABB{Vec3(std::numeric_limits<float>::max()),
+                         Vec3(std::numeric_limits<float>::lowest())};
+
+        for(const auto& primitive : m_objects) {
+
+            aabb = SurroundingBox(primitive->BoundingBox(),aabb);
+        }
+        return aabb;
+    }
+
 };
 
 #endif

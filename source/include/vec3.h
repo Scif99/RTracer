@@ -31,6 +31,8 @@ public:
     explicit constexpr Vec3(float x, float y, float z)
         : elem{x,y,z} {}
 
+    explicit constexpr Vec3(float x)
+        : elem{x,x,x} {}
     constexpr float X() const noexcept {return elem[0];}
     constexpr float Y() const noexcept {return elem[1];}
     constexpr float Z() const noexcept {return elem[2];}

@@ -1,6 +1,7 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
+#include "aabb.h"
 #include "ray.h"
 
 #include <memory>
@@ -22,10 +23,12 @@ struct HitData
 class Hittable
 {
 public:
-    virtual ~Hittable() = default;
+    virtual ~Hittable() {};
 
     /// @brief Optionally returns data at an intersection
     virtual std::optional<HitData> Hit(const Ray& ray, float t_low, float t_high) const = 0; 
+
+    virtual AABB BoundingBox() const = 0;
 };
 
 #endif

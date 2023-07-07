@@ -8,6 +8,7 @@
 #include <numeric>
 #include <vector>
 
+#include "bvh.h"
 #include "camera.h"
 #include "hittable.h"
 #include "hittable_list.h"
@@ -16,18 +17,14 @@
 #include "math.h"
 #include "ray.h"
 #include "sphere.h"
+#include "trace.h"
 #include "triangle.h"
 #include "utility.h"
 #include "vec3.h"
 
-static constexpr auto mat_eta{1.5f}; //refractive index of materials
-static constexpr Color kBackGroundColor = Vec3(0.235294, 0.67451, 0.843137); //background color of the scene
-static constexpr auto eps{0.001f}; //bias to prevent self-intersection
-
 
 HittableList RandomScene() {
     HittableList world;
-    
     const auto mat_ground = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.5f, 0.5f, 0.5f));
     world.Add(std::make_shared<Sphere>(Point3(0.f,-1000.f,0.f), 1000.f, mat_ground));
 
@@ -71,98 +68,6 @@ HittableList RandomScene() {
 }
 
 
-
-// a recursive function that determines the color of a pixel 
-Color RayColor(const Ray& ray, const HittableList& scene, const PointLight& light, float t_low, float t_high, int depth) {
-    assert(t_low <  t_high);
-
-    //No more rays to trace, return background color
-    if(depth<=0) return kBackGroundColor; 
-
-    auto hit_data{ scene.Hit(ray, t_low, t_high) };
-
-    //The ray didn't intersect anything
-    if(!hit_data) {return kBackGroundColor;}
-
-    //Unwrap
-    const auto& [hit_param, hit_point, hit_normal, mat_ptr] = hit_data.value();
-
-    if(mat_ptr->m_type == Material::MaterialType::MIRROR)
-    {
-        const auto reflected_dir{ Reflected(ray.Direction(),hit_normal)};
-        const auto reflected_ray = Ray{ hit_point, reflected_dir}; 
-        const auto reflectance{ Fresnel(Norm3(ray.Direction()), hit_normal, mat_eta)}; //A measure of 'what % of the ray gets reflected'
-        return reflectance * RayColor(reflected_ray, scene, light, eps, std::numeric_limits<float>::max(), depth-1);
-        //TODO add some ambient color/attenuation so shadows aren't pitch black?
-    }
-
-    // //Glassy (refractive) surface
-    if(mat_ptr->m_type == Material::MaterialType::DIELECTRIC)
-    {
-
-        //There is always at least some amount of reflection, so we can compute the reflected ray immediately
-        const auto reflected_dir = Norm3{Reflected(ray.Direction(), hit_normal)};
-        const auto reflected_ray = Ray{reflected_dir, hit_point};
-
-        //Did the intersection produce refraction?                            
-        const auto refracted_dir = std::optional<Vec3>{Refracted(Norm3(ray.Direction()), hit_normal, mat_eta)};     
-
-        //No refraction(TIR) so we can return early
-        if(!refracted_dir) { 
-            return RayColor(reflected_ray, scene, light, eps, std::numeric_limits<float>::max(), depth-1);
-        }   
-
-        //There is refraction, so we can generate the refracted ray
-        const auto refracted_ray = Ray{hit_point, refracted_dir.value()};  
-                                                  
-        //The Fresnel equations dictate "how much" of the light is refracted vs reflected
-        //compute reflectance using schlick approximation 
-        auto reflectance = Fresnel(Norm3(ray.Direction()), hit_normal, mat_eta);
-        return reflectance * RayColor(reflected_ray, scene, light, eps, std::numeric_limits<float>::max(), depth-1) + 
-                            (1 - reflectance) * RayColor(refracted_ray, scene, light, eps, std::numeric_limits<float>::max(), depth-1);
-
-    }
-
-    //Shade diffuse surface using Blinn-Phong model    
-    else 
-    {
-
-        //Check if ray is a shadow ray by generating a ray from the hit point and casting it to all light sources 
-        //To avoid any self-intersections we add some bias to the shadow ray (the direction depends on whether ray hits inside or outside of surface)
-        // Direction vector from intersection point to light source
-        const auto light_dir = Norm3{light.position - hit_point};                                                                        
-        const auto secondary_ray = Ray{ hit_point, light_dir};
-
-        //It's ok if the shadow ray hits another object IF the light source is closer than the occluding object
-        if(const auto param = scene.Hit( secondary_ray, eps, std::numeric_limits<float>::max()); param) //TODO Modify for multiple lights
-        {
-            //Is this occluding object closer than the light source?
-            const auto vec_surf_to_light{light.position - hit_point};
-            const auto vec_surf_to_occ{param.value().hit_point - ray.Origin()};
-            if(vec_surf_to_occ.LengthSquared() < vec_surf_to_light.LengthSquared() )
-
-            return Color(0.f,0.f,0.f); 
-        }
-
-        //Ambient 
-        constexpr auto ambient_strength{0.1f};
-        const auto ambient_light{ ambient_strength*light.intensity };
-
-        //Diffuse 
-        const auto diffuse_angle = std::max(0.f,Dot(hit_normal, light_dir));
-        const auto diffuse_light = Color{light.intensity * diffuse_angle }; // * surface color?
-
-        //Specular  
-        const auto v = Norm3{-ray.Direction()};
-        const auto h = Norm3{light_dir+v}; //vector that bisects the light direction and eye direction
-        const auto spec_angle{ std::max(0.f, Dot(hit_normal, h))};
-        const Color specular_color{light.intensity*(std::pow(spec_angle, mat_ptr->specular_exponent))};
-        
-        return diffuse_light*(mat_ptr->Kd) + specular_color * (mat_ptr->Ks); 
-    }
-    
-}
-
 int main()
 {
 
@@ -182,21 +87,12 @@ int main()
     //-----------------------
 
     HittableList world = RandomScene();
-    // auto mat_ground = std::make_shared<Material>(Material::MaterialType::DIFFUSE, Color(0.8f, 0.8f, 0.f));
-    // auto mat_center = std::make_shared<Material>(Material::MaterialType::DIELECTRIC, Color(0.7f, 0.3f, 0.3f));
-    // auto mat_left = std::make_shared<Material>(Material::MaterialType::DIELECTRIC, Color(0.8f, 0.8f, 0.8f));
-    // auto mat_right = std::make_shared<Material>(Material::MaterialType::MIRROR, Color(0.8f, 0.6f, 0.2f));
-
-    // world.Add(std::make_shared<Sphere>(Point3( 0.f,-100.5f, -1.f), 100.f, mat_ground));
-    // world.Add(std::make_shared<Sphere>(Point3( 0.f, 0.f, -1.f), 0.5f, mat_center));
-    // world.Add(std::make_shared<Sphere>(Point3(-1.f, 0.f, -1.f), 0.5f, mat_left));
-    // //world.Add(std::make_shared<Sphere>(Point3(-1.f, 0.f, -1.f), -0.4f, mat_left));
-    // world.Add(std::make_shared<Sphere>(Point3( 1.f, 0.f, -1.f), 0.5f, mat_right));
-
+    auto root = std::make_unique<BVHNode>(world);
+    
     //Lights
     constexpr auto light = PointLight{Point3{0.f,70.f,20.f}, Color{0.5f,0.5f,0.5f}};
-    constexpr auto samples_per_pixel{1};
-    constexpr auto max_depth{3};
+    constexpr auto samples_per_pixel{50};
+    constexpr auto max_depth{10};
 
 
     //---------------------
@@ -220,7 +116,7 @@ int main()
                 const auto u{(static_cast<float>(i) + RNG::Get().GenerateFloat(0.f,1.f)) / static_cast<float>(image_width-1)}; 
                 const auto v{(static_cast<float>(j) + RNG::Get().GenerateFloat(0.f,1.f) )/ static_cast<float>(image_height-1)};
                 const Ray r = cam.GetRay(u,v);
-                sum_col +=RayColor(r, world, light, 0.f, std::numeric_limits<float>::max(), max_depth );
+                sum_col +=RayColor(r, root.get(), light, 0.f, std::numeric_limits<float>::max(), max_depth );
             }
             PrintColor(out_file,sum_col, samples_per_pixel);
         }

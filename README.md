@@ -9,3 +9,4 @@ TO-DO
 - What happens with double-sided triangles?
 - Current RGN singleton will use same seed every time
 - Creating bounding boxes for triangles
+- Cachse BoundingBox() function for primitives
