@@ -4,16 +4,16 @@
 #include "bvh.h"
 #include "vec3.h"
 #include "hittable_list.h"
-#include "light.h"
 #include "math.h"
 #include "material.h"
 
+//sorry
 static constexpr auto mat_eta{1.5f}; //refractive index of materials
 static constexpr Color kBackGroundColor = Vec3(0.235294, 0.67451, 0.843137); //background color of the scene
 static constexpr auto eps{0.001f}; //bias to prevent self-intersection
 
 
-// a recursive function that determines the color of a pixel 
+// Algorithm.
 Color RayColor(const Ray& ray, Hittable* scene, const PointLight& light, float t_low, float t_high, int depth) {
     assert(t_low <  t_high);
 
@@ -86,8 +86,8 @@ Color RayColor(const Ray& ray, Hittable* scene, const PointLight& light, float t
         }
 
         //Ambient 
-        constexpr auto ambient_strength{0.1f};
-        const auto ambient_light{ ambient_strength*light.intensity };
+        // constexpr auto ambient_strength{0.1f};
+        // const auto ambient_light{ ambient_strength*light.intensity };
 
         //Diffuse 
         const auto diffuse_angle = std::max(0.f,Dot(hit_normal, light_dir));

@@ -3,14 +3,13 @@
 
 #include <random>
 /*
-The RNG class is a singleton that allows you to generate a random float in a specified range
-
+TODO: I think right now it will always generate the same seed...
 */
 
 class RNG
 {
     RNG() = default;
-    //inline static std::random_device rd; Is there a way to incorporate this?
+    //inline static std::random_device rd; //Is there a way to incorporate this?
     inline static std::mt19937 eng;
 
 public:

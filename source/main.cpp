@@ -19,7 +19,7 @@
 #include "sphere.h"
 #include "trace.h"
 #include "triangle.h"
-#include "utility.h"
+#include "rng.h"
 #include "vec3.h"
 
 

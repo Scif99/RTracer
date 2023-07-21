@@ -9,7 +9,7 @@
 #include <optional>
 #include <random>
 
-#include "utility.h"
+#include "rng.h"
 
 
 class Vec3

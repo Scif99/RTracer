@@ -33,16 +33,18 @@ inline std::optional<std::pair<float,float>> SolveQuadratic(float a, float b, fl
 
 
 /// @brief Linearly interpolates between two points in 3d
-/// @param a 
-/// @param b 
+/// @param a Initial point
+/// @param b Final point
 /// @param mix_value 
-/// @return 
+/// @return Lerp'd value
 inline Vec3 Mix(const Vec3& a, const Vec3& b, float mix_value) {
     return a*(1.f-mix_value) + b*mix_value;
 };
 
 
 // computes the reflected ray given an in direction and an *outward* normal
+/// @brief Computes a reflected ray about a surface normal.
+/// @param I Incident vector
 inline Vec3 Reflected(const Vec3& I, const Norm3& N)
 {
     //assert, d, n are normalised

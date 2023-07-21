@@ -6,7 +6,7 @@
 
 #include "ray.h"
 
-//Returns intersection of intervals (x0,x1) and (y0,y1)
+//Optionally returns intersection of intervals (x0,x1) and (y0,y1)
 static inline std::optional<std::array<float,2>> Overlap(float x0, float x1, float y0, float y1) {
     assert(x0<=x1 && y0<=y1);
 

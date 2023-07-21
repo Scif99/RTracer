@@ -19,7 +19,7 @@ struct HitData
     std::shared_ptr<Material> mat_ptr; //material
 };
 
-/// @brief Interface for any entity that a ray can intersect
+/// @brief Interface for anything that a ray can intersect 
 class Hittable
 {
 public:
