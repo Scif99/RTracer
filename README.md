@@ -1,4 +1,4 @@
-An implementation of Whitted-style Ray Tracing. Uses OOP. 
+An implementation of Whitted-style Ray Tracing. Nothing special.
 
 Renders something like this:
 ![Balls](/images/Balls.jpeg?raw=true "Optional Title")
