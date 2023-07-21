@@ -287,24 +287,22 @@ source/CMakeFiles/RayTracer.dir/main.cpp.o: /home/sc2046/Projects/Graphics/RTrac
   /usr/include/c++/10/bits/random.h \
   /usr/include/x86_64-linux-gnu/c++/10/bits/opt_random.h \
   /usr/include/c++/10/bits/random.tcc \
-  /home/sc2046/Projects/Graphics/RTracer/source/include/utility.h \
+  /home/sc2046/Projects/Graphics/RTracer/source/include/rng.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/hittable.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/hittable_list.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/camera.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/hittable.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/hittable_list.h \
-  /home/sc2046/Projects/Graphics/RTracer/source/include/light.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/material.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/math.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/ray.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/sphere.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/trace.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/bvh.h \
-  /home/sc2046/Projects/Graphics/RTracer/source/include/light.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/math.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/material.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/triangle.h \
-  /home/sc2046/Projects/Graphics/RTracer/source/include/utility.h \
+  /home/sc2046/Projects/Graphics/RTracer/source/include/rng.h \
   /home/sc2046/Projects/Graphics/RTracer/source/include/vec3.h
 
 source/CMakeFiles/RayTracer.dir/sphere.cpp.o: /home/sc2046/Projects/Graphics/RTracer/source/sphere.cpp \
@@ -1096,8 +1094,6 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
-/home/sc2046/Projects/Graphics/RTracer/source/include/light.h:
-
 /usr/include/c++/10/algorithm:
 
 /usr/include/c++/10/type_traits:
@@ -1277,6 +1273,8 @@ source/CMakeFiles/RayTracer.dir/triangle.cpp.o: /home/sc2046/Projects/Graphics/R
 /usr/include/c++/10/bits/ranges_algobase.h:
 
 /usr/include/c++/10/iterator:
+
+/home/sc2046/Projects/Graphics/RTracer/source/include/rng.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
