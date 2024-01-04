@@ -1,6 +1,0 @@
-/home/sc2046/Projects/Graphics/RTracer/build/CMakeFiles/copy_assets.dir
-/home/sc2046/Projects/Graphics/RTracer/build/CMakeFiles/edit_cache.dir
-/home/sc2046/Projects/Graphics/RTracer/build/CMakeFiles/rebuild_cache.dir
-/home/sc2046/Projects/Graphics/RTracer/build/source/CMakeFiles/RayTracer.dir
-/home/sc2046/Projects/Graphics/RTracer/build/source/CMakeFiles/edit_cache.dir
-/home/sc2046/Projects/Graphics/RTracer/build/source/CMakeFiles/rebuild_cache.dir

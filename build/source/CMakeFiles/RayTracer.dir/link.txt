@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/RayTracer.dir/main.cpp.o CMakeFiles/RayTracer.dir/sphere.cpp.o CMakeFiles/RayTracer.dir/triangle.cpp.o -o RayTracer 
